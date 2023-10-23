@@ -1,26 +1,40 @@
 /** @type {import('tailwindcss').Config} */
+
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   theme: {
     container: {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        // "2xl": "1400px",
+        xs: "357px",
+        sm: "640px",
+        md: "880px",
+        lg: "1280px",
+        xl: "1440px",
+        "2xl": "1680px",
+        "3xl": "1920px",
+        "4xl": "2240px",
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["Lato", ...defaultTheme.fontFamily.sans],
+      },
       colors: {
         "afruna-base": "#3C3C3C",
-        "afruna-blue": "#0C0E3B",
+        "afruna-blue": "#282C4B",
         "afruna-gold": "#FF9017",
-        "afruna-gray": "#595858",
+        "afruna-gray": "#747582",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -77,4 +91,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

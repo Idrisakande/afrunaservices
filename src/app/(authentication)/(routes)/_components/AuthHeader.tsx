@@ -32,26 +32,34 @@ const AuthHeader: FC<AuthHeaderProps> = ({}) => {
         <div className="flex w-full md:justify-center md:items-center">
           <Link href={"/"} className="flex justify-center items-center">
             <div className="w-[10rem] h-[1.5rem] md:w-[14rem] md:h-[1.7rem] overflow-hidden relative">
-              <Image src={imgs.afruna_main_logo} alt="logo" priority fill />
+              <Image
+                src={imgs.afruna_main_logo}
+                alt="logo"
+                priority
+                fill
+                // className="object-contain"
+              />
             </div>
           </Link>
         </div>
         <ItemPicker
-            leftTriggerIcon={<MdHelp className="text-xl hidden md:block " />}
-            contentClassName={
-              "bg-white p-4 text-afruna-blue w-40 text-xs z-40 rounded-md"
-            }
-            triggerClassName={"flex gap-1 md:font-bold items-center text-afruna-blue"}
-            getSelected={handleHelpSelection}
-            items={HELP}
-            placeholder="Help!"
-            extraComponent={
-              <button className="bg-gradient-to-b from-blue-400 to-blue-900 hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-800 transition duration-500 my-2 w-full text-white p-2 rounded-md flex items-center justify-center space-x-2">
-                <MdSupportAgent className="text-xl" />
-                <span className="text-md">Live Chat</span>
-              </button>
-            }
-          />
+          leftTriggerIcon={<MdHelp className="text-xl hidden md:block " />}
+          contentClassName={
+            "bg-white p-4 text-afruna-blue w-40 text-xs z-40 rounded-md"
+          }
+          triggerClassName={
+            "flex gap-1 md:font-bold items-center text-afruna-blue"
+          }
+          getSelected={handleHelpSelection}
+          items={HELP}
+          placeholder="Help!"
+          extraComponent={
+            <button className="bg-gradient-to-b from-blue-400 to-blue-900 hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-800 transition duration-500 my-2 w-full text-white p-2 rounded-md flex items-center justify-center space-x-2">
+              <MdSupportAgent className="text-xl" />
+              <span className="text-md">Live Chat</span>
+            </button>
+          }
+        />
       </nav>
     </header>
   );
