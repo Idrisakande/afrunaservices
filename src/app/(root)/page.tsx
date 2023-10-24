@@ -1,4 +1,5 @@
 import Landingbannar from "@/components/Landingbannar";
+import { ProviderCard } from "@/components/ProviderCard";
 import ServicesCard from "@/components/ServicesCard";
 import { Button } from "@/components/ui/button";
 import {
@@ -133,6 +134,31 @@ export default function Home() {
         <div className="flex flex-wrap gap-10 mt-8 ">
           {services.map((item) => {
             return <ServicesCard key={item.services} item={item} />;
+          })}
+        </div>
+      </section>
+      {/* services provider section */}
+      <section className="flex flex-col gap-2 px-4 pt-12 relative bg-[#FFFDFB] w-full mx-auto pb-16">
+        <div className="flex flex-col gap-6 md:flex-row">
+          <div className="flex flex-col gap-2">
+            <h3 className=" text-orange-400 text">The owners</h3>
+            <h1 className="flex text-3xl font-extrabold text-afruna-blue">
+              Services Provider
+            </h1></div>
+          <div className="flex justify-start items-center max-w-[80%] gap-1 bg-white rounded-full">
+            <Button
+              variant={"yellowOutlineButton"}
+              className=" w-full rounded-full max-w-[8rem]"
+            >
+              View All{" "}
+              <MdOutlineKeyboardDoubleArrowRight className="text-2xl ml-2" />
+            </Button>
+            <Link href={"/"}>View</Link>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-10 mt-8 ">
+          {services.map((item) => {
+            return <ProviderCard key={item.services} item={item} />;
           })}
         </div>
       </section>
