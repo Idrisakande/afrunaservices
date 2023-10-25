@@ -27,6 +27,7 @@ import operate4 from "@/assests/imgs/operate4.png";
 import disSer2 from "@/assests/imgs/disSer1.png";
 import disSer1 from "@/assests/imgs/disSer2.png";
 import disSer3 from "@/assests/imgs/disSer3.png";
+import showcase from "@/assests/imgs/showcase.png";
 
 export const imgs = {
   afruna_main_logo,
@@ -56,5 +57,6 @@ export const imgs = {
   operate4,
   disSer1,
   disSer2,
-  disSer3
+  disSer3,
+  showcase,
 };
