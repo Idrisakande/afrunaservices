@@ -1,3 +1,5 @@
+'use client'
+
 import { FC, useState } from "react";
 import classnames from "classnames";
 import * as Select from "@radix-ui/react-select";

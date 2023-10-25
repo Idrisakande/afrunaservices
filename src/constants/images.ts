@@ -35,6 +35,9 @@ import provider3 from "@/assests/imgs/provider3.png";
 import footerLogo from "@/assests/imgs/logo.png";
 import bannerCoil from "@/assests/imgs/bannerCoil.png";
 import bannerDot from "@/assests/imgs/bannerDot.png";
+import testi1 from "@/assests/imgs/testi1.png";
+import testi2 from "@/assests/imgs/testi2.png";
+import testi3 from "@/assests/imgs/testi3.png";
 
 export const imgs = {
   afruna_main_logo,
@@ -72,5 +75,8 @@ export const imgs = {
   footerLogo,
   bannerDot,
   bannerCoil,
-  operateStroke
+  operateStroke,
+  testi1,
+  testi2,
+  testi3,
 };

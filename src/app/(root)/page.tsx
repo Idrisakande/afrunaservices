@@ -3,6 +3,7 @@ import Landingbannar from "@/components/Landingbannar";
 import { NewsLetter } from "@/components/NewsLetter";
 import { ProviderCard } from "@/components/ProviderCard";
 import ServicesCard from "@/components/ServicesCard";
+import TestimonialSlider from "@/components/TestimonialSlider";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   feautureCategories,
@@ -70,10 +71,10 @@ export default function Home() {
         <h1 className="flex text-3xl font-extrabold text-afruna-blue">
           How it works
         </h1>
-        <div className="flex justify-start items-center lg:mt-2 max-w-[80%] lg:max-w-[20rem] gap-1 bg-white rounded-full">
+        <div className="flex justify-start items-center lg:mt-2 max-w-[80%] lg:max-w-fit gap-1 bg-white rounded-full">
           <Button
             variant={"primary"}
-            className=" w-full rounded-full max-w-[8rem]"
+            className=" w-full rounded-full max-w-[8rem] lg:px-16"
           >
             Users
           </Button>
@@ -138,17 +139,19 @@ export default function Home() {
             </p>
           </div>
           <div className="flex justify-start items-center max-w-[80%] gap-1 bg-white rounded-full">
-            <Button
-              variant={"yellowOutlineButton"}
-              className=" w-full rounded-full max-w-[8rem]"
-            >
-              View All{" "}
-              <MdOutlineKeyboardDoubleArrowRight className="text-2xl ml-2" />
-            </Button>
+            <Link href={"/housingservices"}>
+              <Button
+                variant={"yellowOutlineButton"}
+                className=" w-full rounded-full max-w-[8rem]"
+              >
+                View All{" "}
+                <MdOutlineKeyboardDoubleArrowRight className="text-2xl ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="flex flex-wrap gap-4 mt-8 ">
-          {services.map((item) => {
+          {services.slice(0, 3).map((item) => {
             return <ServicesCard key={item.services} item={item} />;
           })}
         </div>
@@ -179,19 +182,37 @@ export default function Home() {
           })}
         </div>
       </section>
+      {/* testimonial section */}
+      <section className="flex flex-col gap-8 py-8 lg:pt-16 lg:pb-40 px-16">
+        <div className="flex pl-16 flex-col justify-start items-start gap-4">
+          <h4 className=" text-afruna-gold">TESTMONIAL</h4>
+          <h1 className=" text-afruna-blue text-2xl leading-3 font-bold">
+            See why our users prefer us
+          </h1>
+        </div>
+        {/* <div className="bg-[#FEE5CB] h-[10rem] w-full"> */}
+        <TestimonialSlider />
+        {/* </div> */}
+      </section>
       {/* show case section */}
-      <section className=" py-8 lg:py-28 px-4 lg:px-40 ">
+      <section className="py-8 lg:py-28 px-4 lg:px-40 ">
         {" "}
         <div className=" relative h-[38rem] lg:h-[23rem] flex flex-col justify-start lg:justify-center items-start gap-4 p-6 lg:p-16 bg-gradient-showcase rounded-2xl">
           <h2 className=" lg:max-w-[30rem] pt-12 lg:pt-0 w-full text-[1.9rem] text-white font-extrabold">
             Show case your product & Services on Afruna
           </h2>
-          <p className="lg:text-xs text-white text-base ">What service do you need?</p>
+          <p className="lg:text-xs text-white text-base ">
+            What service do you need?
+          </p>
           <div className="hidden md:flex justify-start">
-            <Button className=" font-bold text-black bg-gradient-to-l from-orange-400 to-orange-200 rounded-full w-full h-12 px-12">Join Now</Button>
+            <Button className=" font-bold text-black bg-gradient-to-l from-orange-400 to-orange-200 rounded-full w-full h-12 px-12">
+              Join Now
+            </Button>
           </div>
           <div className=" block md:hidden left-4 right-4 absolute bottom-8 z-10">
-            <Button className=" text-sm font-bold text-black bg-gradient-to-l from-orange-400  to-orange-200 rounded-full w-full h-12 px-8">Join Now</Button>
+            <Button className=" text-sm font-bold text-black bg-gradient-to-l from-orange-400  to-orange-200 rounded-full w-full h-12 px-8">
+              Join Now
+            </Button>
           </div>
           <div className="absolute bottom-0 lg:-right-32">
             <div className="w-[18rem] h-[18rem] lg:w-[40rem] lg:h-[30rem] overflow-hidden relative flex justify-center items-center">

@@ -11,7 +11,7 @@ interface ServicesCardProps {
 
 const ServicesCard: FC<ServicesCardProps> = ({ item }) => {
   return (
-    <div className="bg-white p-2 md:px-4 w-full lg:max-w-[21rem] shadow-md flex flex-col gap-1 relative">
+    <div className="bg-white p-2 lg:pb-4 rounded-lg md:px-4 w-full lg:max-w-[21rem] shadow-md flex flex-col gap-1 relative">
       <div className="relative flex justify-center  items-center h-[15rem] lg:h-[13rem] ">
         <div className="w-full h-full overflow-hidden relative rounded-lg">
           <Image src={item.img1} alt="partner" priority fill />

@@ -152,7 +152,63 @@ export const services = [
     des: 'Babysitting and nanny servicesBabysitting and nanny services',
     location: 'Area 11, Garki Abuja',
     rating: '4.0',
-    price: '#10,00'
+    price: '#10,000'
+  },
+  {
+    img1: imgs.disSer1,
+    services: 'Event',
+    des: 'Photography/Video Editing',
+    location: 'Kaduna',
+    rating: '4.2',
+    price: '#4200'
+  },
+  {
+    img1: imgs.disSer2,
+    services: 'Construction',
+    des: 'Building plan & Drawing',
+    location: 'Kaduna',
+    rating: '3.0',
+    price: '#4200'
+  },
+  {
+    img1: imgs.disSer3,
+    services: 'Childcare',
+    des: 'Babysitting and nanny servicesBabysitting and nanny services',
+    location: 'Area 11, Garki Abuja',
+    rating: '3.7',
+    price: '#10,000'
+  },
+  {
+    img1: imgs.disSer1,
+    services: 'Event',
+    des: 'Photography/Video Editing',
+    location: 'Kaduna',
+    rating: '2.5',
+    price: '#4200'
+  },
+  {
+    img1: imgs.disSer2,
+    services: 'Construction',
+    des: 'Building plan & Drawing',
+    location: 'Kaduna',
+    rating: '4.5',
+    price: '#4200'
+  },
+  {
+    img1: imgs.disSer3,
+    services: 'Childcare',
+    des: 'Babysitting and nanny servicesBabysitting and nanny services',
+    location: 'Area 11, Garki Abuja',
+    rating: '3.8',
+    price: '#10,000'
+  },
+  {
+    img1: imgs.disSer3,
+    services: 'Childcare',
+    des: 'Babysitting and nanny servicesBabysitting and nanny services',
+    location: 'Area 11, Garki Abuja',
+    rating: '3.4',
+    price: '#10,000'
   },
 ];
 export const providers = [
@@ -252,4 +308,80 @@ export const providers = [
     name: 'Yamaha Jamal',
     rating: '4.8',
   },
+];
+export const testimonialData = [
+  {
+    img: imgs.testi3,
+    name: "Ralph Edwards",
+    statement: "Odio rhoncus ornare ut quam. Molestie vel duis quis scelerisque ut id. In tortor turpis viverra sagittis ultrices nisi, nec tortor. Vestibulum, ultrices ultricies neque, hac ultricies dolor",
+    services: 'Math Teacher'
+  },
+  {
+    img: imgs.testi1,
+    name: "Alice Smith",
+    statement: "Sagittis nunc egestas leo et malesuada urna risus. Morbi proin et cras aliquam. Diam tellus, amet, hac imperdiet. Tellus mi volutpat tellus, congue malesuada sit nisl donec a",
+    services: 'Manager'
+  },
+  {
+    img: imgs.provider3,
+    name: "John Joy",
+    statement: "Odio rhoncus ornare ut quam. Molestie vel duis quis scelerisque ut id. In tortor turpis viverra sagittis ultrices nisi, nec tortor. Vestibulum, ultrices ultricies neque, hac ultricies dolor",
+    services: 'Psychology Student'
+  },
+  {
+    img: imgs.testi2,
+    name: "Alice idris",
+    statement: "Sagittis nunc egestas leo et malesuada urna risus. Morbi proin et cras aliquam. Diam tellus, amet, hac imperdiet. Tellus mi volutpat tellus, congue malesuada sit nisl donec a",
+    services: 'Frontend Dev'
+  },
+  {
+    img: imgs.provider1,
+    name: "Ayuba Alanin",
+    statement: "Odio rhoncus ornare ut quam. Molestie vel duis quis scelerisque ut id. In tortor turpis viverra sagittis ultrices nisi, nec tortor. Vestibulum, ultrices ultricies neque, hac ultricies dolor",
+    services: 'Psychologist'
+  },
+  {
+    img: imgs.testi3,
+    name: "Olaide idris",
+    statement: "Sapien, sollicitudin et vitae id et laoreet sapien consectetur. Felis egestas egestas amet aliquam sit euismod. Pellentesque neque, sed ut volutpat. Ullamcorper in at nulla dignissim",
+    services: 'Manager'
+  },
+  {
+    img: imgs.provider3,
+    name: "Akande Abiodun",
+    statement: "Sagittis nunc egestas leo et malesuada urna risus. Morbi proin et cras aliquam. Diam tellus, amet, hac imperdiet. Tellus mi volutpat tellus, congue malesuada sit nisl donec a",
+    services: 'Lawyer'
+  }
+  ,
+  {
+    img: imgs.testi2,
+    name: "Azeezat Smith",
+    statement: "Sapien, sollicitudin et vitae id et laoreet sapien consectetur. Felis egestas egestas amet aliquam sit euismod. Pellentesque neque, sed ut volutpat. Ullamcorper in at nulla dignissim",
+    services: 'Backend Dev'
+  },
+  {
+    img: imgs.testi3,
+    name: "John sofiyah",
+    statement: "Odio rhoncus ornare ut quam. Molestie vel duis quis scelerisque ut id. In tortor turpis viverra sagittis ultrices nisi, nec tortor. Vestibulum, ultrices ultricies neque, hac ultricies dolor",
+    services: 'Accountant'
+  },
+  {
+    img: imgs.testi1,
+    name: "Idris Olaide",
+    statement: "Sagittis nunc egestas leo et malesuada urna risus. Morbi proin et cras aliquam. Diam tellus, amet, hac imperdiet. Tellus mi volutpat tellus, congue malesuada sit nisl donec a",
+    services: 'Doctor'
+  },
+  {
+    img: imgs.provider3,
+    name: "Adewale Usman",
+    statement: "Sapien, Sagittis nunc egestas leo et malesuada urna risus. Morbi proin et cras aliquam. Diam tellus, amet, hac imperdiet. Tellus mi volutpat tellus, congue malesuada sit nisl donec a.id et laoreet sapien consectetur. Felis egestas egestas amet aliquam sit euismod. Pellentesque neque, sed ut volutpat. Ullamcorper in at nulla dignissim",
+    services: 'Manager'
+  },
+  {
+    img: imgs.testi3,
+    name: "Alice Smith",
+    statement: "Sagittis nunc egestas leo et malesuada urna risus. Morbi proin et cras aliquam. Diam tellus, amet, hac imperdiet. Tellus mi volutpat tellus, congue malesuada sit nisl donec a",
+    services: 'Manager'
+  }
+  ,
 ];

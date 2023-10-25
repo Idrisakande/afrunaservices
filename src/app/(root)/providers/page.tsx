@@ -21,6 +21,7 @@ const page: FC<pageProps> = ({}) => {
           return <ProviderCard key={item.rating} item={item} />
         })}
       </section>
+      {/* newsletter */}
       <NewsLetter/>
     </>
   );

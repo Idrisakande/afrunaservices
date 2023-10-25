@@ -125,7 +125,7 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
               Service Provider
             </Link>
             <Link
-              href={"/"}
+              href={"/contact"}
               className="hover:scale-95 duration-300 text-xs lg:text-sm"
             >
               Contact Us
@@ -149,7 +149,7 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
                   mobileClassName="hidden md:flex text-sm lg:text-base"
                   triggerClassName="flex gap-2 items-center"
                   contentClassName={
-                    "bg-white p-4 text-afruna-blue w-40 text-xs z-20 rounded-md"
+                    "bg-white p-4 text-afruna-blue w-40 text-xs z-30 rounded-md"
                   }
                   getSelected={(val) => console.log(val)}
                   leftTriggerIcon={

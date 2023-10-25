@@ -3,6 +3,7 @@ import { FC } from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { IoMdCheckmark } from "react-icons/io";
 
 interface ProviderCardProps {
   item: IProvider
@@ -18,7 +19,7 @@ export const ProviderCard: FC<ProviderCardProps> = ({ item }) => {
         <div className="flex items-center gap-2">
           <h2 className=" text-afruna-blue font-bold lg:text-sm">{item.name}</h2>{" "}
           <span className="rounded-full text-xs text-green-700 w-[1.2rem] h-[1.2rem] bg-green-300  flex justify-center items-center">
-            2
+          <IoMdCheckmark size={14} />
           </span>
         </div>
         <span className="mt-[0.4rem] text-afruna-gray font-semibold lg:text-sm">Cleaner</span>
