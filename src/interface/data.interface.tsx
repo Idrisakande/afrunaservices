@@ -12,3 +12,13 @@ export interface IService {
   rating: string,
   price: string
 }
+export interface IProvider {
+  img1: StaticImageData
+    services: string
+    name: string
+    rating: string
+}
+export interface ICategories {
+  img: StaticImageData
+  text: string
+}

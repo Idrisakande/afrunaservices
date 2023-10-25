@@ -24,9 +24,16 @@ import operate1 from "@/assests/imgs/operate1.png";
 import operate2 from "@/assests/imgs/operate2.png";
 import operate3 from "@/assests/imgs//operate3.png";
 import operate4 from "@/assests/imgs/operate4.png";
+import operateStroke from "@/assests/imgs/operateStroke.png";
 import disSer2 from "@/assests/imgs/disSer1.png";
 import disSer1 from "@/assests/imgs/disSer2.png";
 import disSer3 from "@/assests/imgs/disSer3.png";
+import provider1 from "@/assests/imgs/provider1.png";
+import provider2 from "@/assests/imgs/provider2.png";
+import provider3 from "@/assests/imgs/provider3.png";
+import footerLogo from "@/assests/imgs/logo.png";
+import bannerCoil from "@/assests/imgs/bannerCoil.png";
+import bannerDot from "@/assests/imgs/bannerDot.png";
 
 export const imgs = {
   afruna_main_logo,
@@ -56,5 +63,12 @@ export const imgs = {
   operate4,
   disSer1,
   disSer2,
-  disSer3
+  disSer3,
+  provider1,
+  provider2,
+  provider3,
+  footerLogo,
+  bannerDot,
+  bannerCoil,
+  operateStroke
 };
