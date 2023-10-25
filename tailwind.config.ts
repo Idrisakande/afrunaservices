@@ -91,7 +91,10 @@ module.exports = {
       backgroundImage: {
         "gradient-newsletter":
           "linear-gradient(135deg, #F2F4FF 0%, #FAFAFF 100%)",
-       
+        "gradient-showcase":
+          "linear-gradient(93.46deg, #06598F 69.49%, #FED6AC 137.07%)",
+      
+
       },
     },
   },

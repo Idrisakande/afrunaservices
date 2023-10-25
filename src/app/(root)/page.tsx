@@ -180,15 +180,23 @@ export default function Home() {
         </div>
       </section>
       {/* show case section */}
-      <section className=" py-16 px-32">
+      <section className=" py-8 lg:py-28 px-4 lg:px-40 ">
         {" "}
-        <div className="flex flex-col gap-4 p-16 bg-gradient-to-r from-sky-700 to-blue-200 rounded-2xl">
-          <h2 className=" max-w-[20rem] w-full text-xl text-white font-extrabold">
+        <div className=" relative h-[38rem] lg:h-[23rem] flex flex-col justify-start lg:justify-center items-start gap-4 p-6 lg:p-16 bg-gradient-showcase rounded-2xl">
+          <h2 className=" lg:max-w-[30rem] pt-12 lg:pt-0 w-full text-[1.9rem] text-white font-extrabold">
             Show case your product & Services on Afruna
           </h2>
-          <p className="text-xs text-white">What service do you need?</p>
-          <div className="flex justify-start">
-          <Button className=" rounded-full h-12 px-8">Join Now</Button>
+          <p className="lg:text-xs text-white text-base ">What service do you need?</p>
+          <div className="hidden md:flex justify-start">
+            <Button className=" font-bold text-black bg-gradient-to-l from-orange-400 to-orange-200 rounded-full w-full h-12 px-12">Join Now</Button>
+          </div>
+          <div className=" block md:hidden left-4 right-4 absolute bottom-8 z-10">
+            <Button className=" text-sm font-bold text-black bg-gradient-to-l from-orange-400  to-orange-200 rounded-full w-full h-12 px-8">Join Now</Button>
+          </div>
+          <div className="absolute bottom-0 lg:-right-32">
+            <div className="w-[18rem] h-[18rem] lg:w-[40rem] lg:h-[30rem] overflow-hidden relative flex justify-center items-center">
+              <Image src={imgs.showcase} alt="showcase" priority fill />
+            </div>
           </div>
         </div>
       </section>
