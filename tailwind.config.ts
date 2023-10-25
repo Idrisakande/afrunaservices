@@ -17,7 +17,7 @@ module.exports = {
       screens: {
         // "2xl": "1400px",
         xs: "357px",
-        sm: "640px",
+        sm: "540px",
         md: "880px",
         lg: "1280px",
         xl: "1440px",
@@ -87,6 +87,11 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      backgroundImage: {
+        "gradient-newsletter":
+          "linear-gradient(135deg, #F2F4FF 0%, #FAFAFF 100%)",
+       
       },
     },
   },
