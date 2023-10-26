@@ -12,9 +12,9 @@ const AccountLayout: FC<layoutProps> = ({ children }) => {
   return (
     <div className="h-full">
       <MainHeader />
-      <div className=" min-h-full flex bg-[#F7F7FF]">
+      <div className=" min-h-full flex bg-[#F7F7FF] gap-10">
         <AccountSideBar />
-        {children}
+        <aside className="py-16">{children}</aside>
       </div>
       <NewsLetter />
       <Footer />

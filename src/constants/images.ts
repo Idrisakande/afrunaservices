@@ -38,6 +38,7 @@ import bannerDot from "@/assests/imgs/bannerDot.png";
 import testi1 from "@/assests/imgs/testi1.png";
 import testi2 from "@/assests/imgs/testi2.png";
 import testi3 from "@/assests/imgs/testi3.png";
+import review1 from "@/assests/imgs/review1.png";
 
 export const imgs = {
   afruna_main_logo,
@@ -79,4 +80,5 @@ export const imgs = {
   testi1,
   testi2,
   testi3,
+  review1,
 };
