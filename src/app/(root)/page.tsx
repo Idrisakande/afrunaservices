@@ -139,7 +139,7 @@ export default function Home() {
             </p>
           </div>
           <div className="flex justify-start items-center max-w-[80%] gap-1 bg-white rounded-full">
-            <Link href={"/housingservices"}>
+            <Link href={"/all_services"}>
               <Button
                 variant={"yellowOutlineButton"}
                 className=" w-full rounded-full max-w-[8rem]"

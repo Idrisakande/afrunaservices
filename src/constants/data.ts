@@ -1,4 +1,4 @@
-import { IAfrunaPartner } from "@/interface/data.interface";
+import { IAfrunaPartner } from "@/interfaces/data.interface";
 import { imgs } from "./images";
 
 export const afrunaPartner: IAfrunaPartner[] = [
@@ -384,4 +384,160 @@ export const testimonialData = [
     services: 'Manager'
   }
   ,
+];
+
+export const users = [
+	{
+		id: '1',
+		img: imgs.seller1,
+		name: "Bhai jan ADMIN",
+		number: 4,
+		active: true,
+	},
+	{
+		id: '2',
+		img: imgs.provider1,
+		name: "Bhai jan ADMIN",
+		number: 2,
+		active: true,
+	},
+	{
+		id: '3',
+		img: imgs.provider2,
+		name: "Bhai jan ADMIN",
+		number: 1,
+		active: true,
+	},
+	{
+		id: '4',
+		img: imgs.provider3,
+		name: "Bhai jan ADMIN",
+		number: 0,
+		active: false,
+	},
+	{
+		id: '5',
+		img: imgs.seller1,
+		name: "Bhai jan ADMIN",
+		number: 0,
+		active: false,
+	},
+	{
+		id: '6',
+		img: imgs.provider3,
+		name: "Bhai jan ADMIN",
+		number: 0,
+		active: false,
+	},
+	{
+		id: '7',
+		img: imgs.provider1,
+		name: "Bhai jan ADMIN",
+		number: 0,
+		active: true,
+	},
+	{
+		id: '8',
+		img: imgs.provider2,
+		name: "Bhai jan ADMIN",
+		number: 0,
+		active: true,
+	},
+	{
+		id: '9',
+		img: imgs.provider1,
+		name: "Bhai jan ADMIN",
+		number: 0,
+		active: true,
+	},
+	{
+		id: 'xnbxcvbvb6887',
+		img: imgs.provider1,
+		name: "Bhai jan ADMIN",
+		number: 0,
+		active: true,
+	},
+	{
+		id: '237643875ufdh',
+		img: imgs.provider3,
+		name: "Bhai jan ADMIN",
+		number: 0,
+		active: true,
+	},
+	{
+		id: 'dwhgsd78',
+		img: imgs.seller1,
+		name: "Bhai jan ADMIN",
+		number: 0,
+		active: false,
+	},
+];
+
+export const conversations = [
+	{
+		id: 'jakh089',
+		img: imgs.seller1,
+		message: "Hi Jov Dov",
+		time: "8:00 PM",
+		isOwn: false,
+	},
+	{
+		id: '89832867tigghwei567',
+		img: imgs.provider1,
+		message: "What sup",
+		time: "8:00 PM",
+		isOwn: true,
+	},
+	{
+		id: 'mnjksd7832903544',
+		img: imgs.provider3,
+		message: "Lorem ipsum hassince the 257678suusdh",
+		time: "8:00 PM",
+		isOwn: false,
+	},
+	{
+		id: 'poiuas567nhg34',
+		img: imgs.seller1,
+		message: "Lorem ipsum hasipsum has been  been the industry ",
+		time: "8:00 PM",
+		isOwn: true,
+	},
+	{
+		id: 'zc32nb76mn',
+		img: imgs.provider1,
+		message: "Lorem ipsum has been the industry",
+		time: "8:00 PM",
+		isOwn: false,
+	},
+	{
+		id: '099yu6',
+		img: imgs.provider3,
+		message:
+			"Lorem ipsum has been the industry standard dummy psum standard dummy text ever since",
+		time: "8:00 PM",
+		isOwn: false,
+	},
+	{
+		id: 7,
+		img: imgs.provider1,
+		message:
+			"Lorem ipsum has been the industry standard dummy text ever standard dummy text ever",
+		time: "8:00 PM",
+		isOwn: true,
+	},
+	{
+		id: 'ghoqw97778',
+		img: imgs.provider2,
+		message: "Lorem ipsum has ever standard dummy text ever",
+		time: "8:00 PM",
+		isOwn: true,
+	},
+	{
+		id: '6677565ythg',
+		img: imgs.provider3,
+		message:
+			"Lorem ipsum has been the industry standard dummy text ever standard dummy text ever",
+		time: "8:00 PM",
+		isOwn: false,
+	},
 ];

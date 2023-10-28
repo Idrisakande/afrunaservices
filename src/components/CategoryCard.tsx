@@ -1,4 +1,4 @@
-import { ICategories } from "@/interface/data.interface";
+import { ICategories } from "@/interfaces/data.interface";
 import Image from "next/image";
 import { FC } from "react";
 

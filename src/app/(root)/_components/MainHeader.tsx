@@ -19,8 +19,9 @@ import Image from "next/image";
 import { imgs } from "@/constants/images";
 import Heading from "@/app/(root)/_components/heading";
 import { FaUser } from "react-icons/fa";
-import { BsFillChatLeftTextFill } from "react-icons/bs";
+import { BsFillChatLeftTextFill, BsHeartFill } from "react-icons/bs";
 import { ItemPicker } from "@/lib/utils/ItemPicker";
+import { AiFillAccountBook } from "react-icons/ai";
 
 interface MainHeaderProps {}
 
@@ -61,7 +62,7 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
   return (
     <header className="sticky top-0 bg-gradient-to-r from-orange-300 to-orange-50 z-30">
       <nav className="max-w-[97%] md:max-w-[95%] w-full flex justify-between items-center mx-auto p-6 lg:max-w-[90%]">
-        <div className="flex justify-between items-center gap-16 md:gap-0 sm:max-w-[50%] sm:w-full md:w-fit">
+        <div className="flex justify-between items-center gap-2 md:gap-0 sm:max-w-[60%] sm:w-full md:w-fit">
           {!sideNavOpen ? (
             <IoMdMenu
               onClick={() => setSideNavOpen(true)}
@@ -80,16 +81,16 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
           </Link>
         </div>
 
-        <div className="hidden md:flex justify-center items-center gap-10 lg:gap-16">
-          <div className="hidden md:flex justify-center items-center gap-2 lg:gap-4 text-afruna-blue font-semibold">
+        <div className="flex justify-center items-center gap-10 lg:gap-16">
+          <div className="hidden lg:flex justify-center items-center gap-2 lg:gap-4 text-afruna-blue font-semibold">
             <Link
               href={"/"}
-              className="hover:scale-95 duration-300 text-xs lg:text-sm"
+              className="hover:scale-95 duration-300 text-xs xl:text-sm"
             >
               Home
             </Link>
             <ItemPicker
-              mobileClassName=" md:flex text-xs lg:text-sm"
+              mobileClassName=" md:flex text-xs xl:text-sm"
               triggerClassName="flex gap-2 items-center"
               contentClassName={
                 "bg-white p-4 text-afruna-blue w-40 text-xs z-20 rounded-md"
@@ -119,20 +120,20 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
               // }
             />
             <Link
-              href={"/"}
-              className="hover:scale-95 duration-300 text-xs lg:text-sm"
+              href={"/providers"}
+              className="hover:scale-95 duration-300 text-xs xl:text-sm"
             >
               Service Provider
             </Link>
             <Link
               href={"/contact"}
-              className="hover:scale-95 duration-300 text-xs lg:text-sm"
+              className="hover:scale-95 duration-300 text-xs xl:text-sm"
             >
               Contact Us
             </Link>
           </div>
 
-          <div className="flex justify-center items-center gap-3">
+          <div className="flex justify-center items-center gap-2 lg:gap-3">
             {true ? (
               <>
                 <Link href={"/"} className="relative">
@@ -142,11 +143,11 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
                     3
                   </span>
                 </Link>
-                <Link href={"/"}>
+                <Link href={"/chat"}>
                   <BsFillChatLeftTextFill className="text-[0.95rem] sm:text-[1.1rem]" />
                 </Link>
                 <ItemPicker
-                  mobileClassName="hidden md:flex text-sm lg:text-base"
+                  mobileClassName="hidden md:flex lg:hidden xl:flex text-sm lg:text-base"
                   triggerClassName="flex gap-2 items-center"
                   contentClassName={
                     "bg-white p-4 text-afruna-blue w-40 text-xs z-30 rounded-md"
@@ -165,8 +166,18 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
                       icon: <FaUser />,
                     },
                     {
+                      name: "Favorite",
+                      icon: <BsHeartFill/>,
+                      href: "/favorite",
+                    },
+                    {
+                      name: "Bookings",
+                      icon: <AiFillAccountBook/>,
+                      href: "/bookings",
+                    },
+                    {
                       name: "Scannar",
-                      href: "/",
+                      href: "/scannar",
                       icon: <MdOutlineQrCodeScanner />,
                     },
                   ]}

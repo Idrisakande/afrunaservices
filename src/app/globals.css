@@ -139,4 +139,11 @@ hr { width:100%;}
 	background: url(../assests/imgs/wall.png) fixed no-repeat;
 	background-origin: border-box;
 	background-size: cover;
+  background-position: center;
+}
+.services-bg {
+	background: url(../assests/imgs/servicesbg.jpg) fixed no-repeat;
+	background-origin: border-box;
+	background-size: cover;
+  background-position: center;
 }

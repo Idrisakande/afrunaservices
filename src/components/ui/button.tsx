@@ -18,6 +18,8 @@ const buttonVariants = cva(
           "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
          yellowOutlineButton:
           "border border-orange-400 bg-white text-orange-400 hover: hover:",
+         skyButton:
+          "text-sky-500 bg-sky-100  hover:bg-gradient-to-br hover:from-sky-50 hover:to-sky-200 transition duration-500",
         primary:
           "text-white bg-gradient-to-b from-blue-400 to-blue-900 hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-800 transition duration-500",
         secondary:

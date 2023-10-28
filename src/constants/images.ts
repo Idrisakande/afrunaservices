@@ -39,6 +39,19 @@ import testi1 from "@/assests/imgs/testi1.png";
 import testi2 from "@/assests/imgs/testi2.png";
 import testi3 from "@/assests/imgs/testi3.png";
 import review1 from "@/assests/imgs/review1.png";
+import servicesbg3 from "@/assests/imgs/servicesbg3.png";
+import servicesbg1 from "@/assests/imgs/servicesbg1.png";
+import detailservice from "@/assests/imgs/detailservice.png";
+import detailsbg from "@/assests/imgs/detailsbg.png";
+import testing from "@/assests/imgs/testing.png";
+import cost from "@/assests/imgs/cost.png";
+import visa from "@/assests/imgs/visa.png";
+import afrunacard from "@/assests/imgs/afrunacard.png";
+import mastercard from "@/assests/imgs/mastercard.png";
+import cam1 from "@/assests/imgs/cam1.png";
+import cam2 from "@/assests/imgs/cam2.png";
+import QRcode from "@/assests/imgs/QRcode.png";
+import photo from "@/assests/imgs/photo.png";
 
 export const imgs = {
   afruna_main_logo,
@@ -64,6 +77,7 @@ export const imgs = {
   transpCategory,
   operate1,
   operate2,
+  testing,
   operate3,
   operate4,
   disSer1,
@@ -81,4 +95,16 @@ export const imgs = {
   testi2,
   testi3,
   review1,
+  servicesbg1,
+  servicesbg3,
+  detailservice,
+  detailsbg,
+  cost,
+  visa,
+  mastercard,
+  afrunacard,
+  QRcode,
+  cam1,
+  cam2,
+  photo
 };
