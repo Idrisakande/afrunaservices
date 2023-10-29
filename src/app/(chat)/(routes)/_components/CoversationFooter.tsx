@@ -58,9 +58,9 @@ export const CoversationFooter: FC<CoversationFooterProps> = ({ to }) => {
 					{...register("message", {
 						required: true,
 					})}
-					className="w-full p-3 font-semibold text-gray-700 text-sm focus:outline-none placeholder:text-[#DBDBDB]"
+					className="w-full p-3 pr-1 font-semibold text-gray-600 text-sm focus:outline-none placeholder:text-[#DBDBDB]"
 				/>
-				<div onClick={handleUpload} className=" min-w-[8rem]">
+				<div onClick={handleUpload} className=" min-w-[6rem] xl:min-w-[8rem]">
 					<MdAttachFile
 						size={37}
 						className="text-[#0C0E3B] hover:scale-90 transition duration-300 p-2 cursor-pointer"
