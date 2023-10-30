@@ -1,13 +1,22 @@
+"use client";
+
+import AddReviewModel from "@/components/AddReviewModel";
 import { Button } from "@/components/ui/button";
 import { imgs } from "@/constants/images";
 import Image from "next/image";
 import Link from "next/link";
-import { FC } from "react";
-import { BsFillChatLeftTextFill, BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { FC, useState } from "react";
+import {
+  BsFillChatLeftTextFill,
+  BsStar,
+  BsStarFill,
+  BsStarHalf,
+} from "react-icons/bs";
 
 interface pageProps {}
 
-const page: FC<pageProps> = ({}) => {
+const BookingsPage: FC<pageProps> = ({}) => {
+  const [open, setOpen] = useState<boolean>(false);
   return (
     <section className="flex flex-col gap-6 max-w-[94%] md:max-w-[100%] mx-auto">
       <h1 className="text-xl pl-2 lg:pl-0 lg:text-2xl leading-3 text-afruna-blue font-bold">
@@ -156,9 +165,14 @@ const page: FC<pageProps> = ({}) => {
               <Button variant={"primary"} className="px-5 text-xs">
                 Re Book
               </Button>
-              <Button variant={"skyButton"} className="text-xs">
+              <Button variant={"skyButton"} className="text-xs" onClick={() => {
+                console.log('clikd');
+                setOpen(true)
+                
+              }}>
                 Add review
               </Button>
+              <AddReviewModel isOpen={open} onClose={() => setOpen(false)} />
             </div>
             <div className="flex justify-center items-center gap-2 ">
               {Array(5)
@@ -268,4 +282,4 @@ const page: FC<pageProps> = ({}) => {
   );
 };
 
-export default page;
+export default BookingsPage;

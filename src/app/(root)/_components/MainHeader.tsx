@@ -22,6 +22,8 @@ import { FaUser } from "react-icons/fa";
 import { BsFillChatLeftTextFill, BsHeartFill } from "react-icons/bs";
 import { ItemPicker } from "@/lib/utils/ItemPicker";
 import { AiFillAccountBook } from "react-icons/ai";
+import { FiChevronDown } from "react-icons/fi";
+import AllServicesModel from "@/components/AllServicesModel";
 
 interface MainHeaderProps {}
 
@@ -59,6 +61,7 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
     //   const authService = new Auth10(router);
     //   authService.handleLogout();
   }, []);
+  const [show, setShow] = useState<boolean>(true);
   return (
     <header className="sticky top-0 bg-gradient-to-r from-orange-300 to-orange-50 z-30">
       <nav className="max-w-[97%] md:max-w-[95%] w-full flex justify-between items-center mx-auto p-6 lg:max-w-[90%]">
@@ -89,36 +92,18 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
             >
               Home
             </Link>
-            <ItemPicker
-              mobileClassName=" md:flex text-xs xl:text-sm"
-              triggerClassName="flex gap-2 items-center"
-              contentClassName={
-                "bg-white p-4 text-afruna-blue w-40 text-xs z-20 rounded-md"
-              }
-              getSelected={(val) => console.log(val)}
-              placeholder={`Services`}
-              // profileLinks={[
-              //   {
-              //     name: "Profile",
-              //     href: "/profile",
-              //     icon: <FaUser />,
-              //   },
-              //   {
-              //     name: "Scannar",
-              //     href: "/",
-              //     icon: <MdOutlineQrCodeScanner />,
-              //   },
-              // ]}
-              // extraComponent={
-              //   <button
-              //     onClick={handleLogOut}
-              //     className="bg-gradient-to-b from-blue-400 to-blue-900 hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-800 transition duration-500 my-2 w-full text-white p-2 rounded-md flex items-center justify-center space-x-2"
-              //   >
-              //     <MdOutlineLogout className="text-lg" />
-              //     <span className="text-md">Log out</span>
-              //   </button>
-              // }
-            />
+            <button onClick={() => {
+              show ? setShow(false) : setShow(true)
+            }} className=" flex justify-center items-center gap-1 text-afruna-blue text-xs xl:text-sm">
+              Service{" "}
+              <FiChevronDown
+                className={`${
+                  show && "rotate-180"
+                } text-xl transition ease-linear duration-300`}
+              />
+              
+            </button>
+            {show ? <AllServicesModel/>: null}
             <Link
               href={"/providers"}
               className="hover:scale-95 duration-300 text-xs xl:text-sm"
@@ -167,12 +152,12 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
                     },
                     {
                       name: "Favorite",
-                      icon: <BsHeartFill/>,
+                      icon: <BsHeartFill />,
                       href: "/favorite",
                     },
                     {
                       name: "Bookings",
-                      icon: <AiFillAccountBook/>,
+                      icon: <AiFillAccountBook />,
                       href: "/bookings",
                     },
                     {

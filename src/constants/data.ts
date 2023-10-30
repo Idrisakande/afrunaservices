@@ -575,31 +575,159 @@ export const providerReviews = [
     review:
       "Car wash is a facility used to clean the exterior and, in some cases, the interior of motor vehicles. Car washes can be self-serve, fully automated, or full-service with attendants who wash the vehicle.",
     rating: 3,
-    name: 'Eniola',
-
-    },
+    name: "Eniola",
+  },
   {
     img: imgs.provider2,
     review:
       "Car wash is a facility used to clean the exterior and, in some cases, the interior of motor vehicles. Car washes can be self-serve, fully automated, or full-service with attendants who wash the vehicle.",
     rating: 2,
-    name: 'Eniola',
-
-    },
+    name: "Eniola",
+  },
   {
     img: imgs.seller1,
     review:
       "Car wash is a facility used to clean the exterior and, in some cases, the interior of motor vehicles. Car washes can be self-serve, fully automated, or full-service with attendants who wash the vehicle.",
     rating: 2,
-    name: 'Eniola',
-
-    },
+    name: "Eniola",
+  },
   {
     img: imgs.provider3,
     review:
       "Car wash is a facility used to clean the exterior and, in some cases, the interior of motor vehicles. Car washes can be self-serve, fully automated, or full-service with attendants who wash the vehicle.",
     rating: 5,
-    name: 'Eniola',
+    name: "Eniola",
+  },
+];
 
-    },
+export const allservices = [
+  {
+    name: "Household",
+    services: [
+      "Cleaning services (house cleaning, carpet cleaning, window cleaning).",
+      "Plumbing services",
+      "Electrical services",
+      "Air Conditioning and cooling system",
+      "services Pest control services ",
+      "Handyman services",
+      "Landscaping and gardening services",
+    ],
+  },
+  {
+    name: "Education",
+    services: [
+      "Tutoring and academic support.",
+      "Language learning services",
+      "Music and arts lessons",
+    ],
+  },
+  {
+    name: "Event",
+    services: [
+      "Event planning and coordination services",
+      "Catering services",
+      "Photography and videography services",
+      "DJ and entertainment services",
+      "services Pest control services ",
+      "Venue rental services Floral and decoration services",
+           
+    ],
+  },
+  {
+    name: "Professional",
+    services: [
+      "Legal services (lawyers, attorneys, legal consultants)",
+      "Marketing and advertising services",
+      "Web development and design services ",
+      "Business consulting services",
+      "Writing and editing services  ",
+      "Accounting and financial services (accountants, tax consultants)",
+      "Translation services  ",
+      "Translation services  ",
+    ],
+  },
+  {
+    name: "Household",
+    services: [
+      "Cleaning services (house cleaning, carpet cleaning, window cleaning).",
+      "Plumbing services",
+      "Electrical services",
+      "Air Conditioning and cooling system",
+      "services Pest control services ",
+      "Handyman services",
+      "Landscaping and gardening services",
+    ],
+  },
+  {
+    name: "Education",
+    services: [
+      "Tutoring and academic support.",
+      "Language learning services",
+      "Music and arts lessons",
+    ],
+  },
+  {
+    name: "Household",
+    services: [
+      "Cleaning services (house cleaning, carpet cleaning, window cleaning).",
+      "Plumbing services",
+      "Electrical services",
+      "Air Conditioning and cooling system",
+      "services Pest control services ",
+      "Handyman services",
+      "Landscaping and gardening services",
+    ],
+  },
+  {
+    name: "Education",
+    services: [
+      "Tutoring and academic support.",
+      "Language learning services",
+      "Music and arts lessons",
+    ],
+  },
+  {
+    name: "Event",
+    services: [
+      "Event planning and coordination services",
+      "Catering services",
+      "Photography and videography services",
+      "DJ and entertainment services",
+      "services Pest control services ",
+      "Venue rental services Floral and decoration services",
+           
+    ],
+  },
+  {
+    name: "Professional",
+    services: [
+      "Legal services (lawyers, attorneys, legal consultants)",
+      "Marketing and advertising services",
+      "Web development and design services ",
+      "Business consulting services",
+      "Writing and editing services  ",
+      "Accounting and financial services (accountants, tax consultants)",
+      "Translation services  ",
+    ],
+  },
+  {
+    name: "Household",
+    services: [
+      "Cleaning services (house cleaning, carpet cleaning, window cleaning).",
+      "Plumbing services",
+      "Electrical services",
+      "Air Conditioning and cooling system",
+      "services Pest control services ",
+      "Handyman services",
+      "Landscaping and gardening services",
+    ],
+  },
+  {
+    name: "Education",
+    services: [
+      "Tutoring and academic support.",
+      "Language learning services",
+      "Music and arts lessons",
+    ],
+  },
 ];
