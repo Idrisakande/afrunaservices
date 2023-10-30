@@ -22,7 +22,7 @@ const AuthHeader: FC<AuthHeaderProps> = ({}) => {
         router.push("contact");
         break;
     }
-  }, []);
+  }, [router]);
 
   const HELP = ["FAQs", "Contact Us"];
 

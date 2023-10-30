@@ -6,7 +6,7 @@ import { FC, useState } from "react";
 
 interface pageProps {}
 
-const page: FC<pageProps> = ({}) => {
+const ScannarPage: FC<pageProps> = ({}) => {
   const [show, setShow] = useState<Boolean>(false);
   return (
     <main className="pt-10 pb-8 w-full flex flex-col justify-center items-center gap-4">
@@ -59,4 +59,4 @@ const page: FC<pageProps> = ({}) => {
   );
 };
 
-export default page;
+export default ScannarPage;

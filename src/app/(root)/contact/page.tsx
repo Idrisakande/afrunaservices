@@ -13,7 +13,7 @@ import { IoPaperPlane } from "react-icons/io5";
 
 interface pageProps {}
 
-const page: FC<pageProps> = ({}) => {
+const ContactPage: FC<pageProps> = ({}) => {
   const {
     register,
     handleSubmit,
@@ -145,4 +145,4 @@ const page: FC<pageProps> = ({}) => {
   );
 };
 
-export default page;
+export default ContactPage

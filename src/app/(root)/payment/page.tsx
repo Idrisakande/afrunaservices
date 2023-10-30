@@ -16,7 +16,7 @@ import Footer from "@/app/(root)/_components/Footer";
 
 interface pageProps {}
 
-const page: FC<pageProps> = ({}) => {
+const PaymentPage: FC<pageProps> = ({}) => {
   const [show, setShow] = useState<Boolean>(false);
   const {
     register,
@@ -421,4 +421,4 @@ const page: FC<pageProps> = ({}) => {
   );
 };
 
-export default page;
+export default PaymentPage

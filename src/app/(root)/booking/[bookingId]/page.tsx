@@ -17,7 +17,7 @@ interface pageProps {
   };
 }
 
-const page: FC<pageProps> = ({ params: { bookingId } }) => {
+const BookingsPage: FC<pageProps> = ({ params: { bookingId } }) => {
   console.log(bookingId);
   const {
     register,
@@ -139,4 +139,4 @@ const page: FC<pageProps> = ({ params: { bookingId } }) => {
   );
 };
 
-export default page;
+export default BookingsPage

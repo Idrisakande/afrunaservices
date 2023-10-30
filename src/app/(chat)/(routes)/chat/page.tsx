@@ -9,7 +9,7 @@ import { users } from "@/constants/data";
 
 interface pageProps {}
 
-const page: FC<pageProps> = ({}) => {
+const ChatPage: FC<pageProps> = ({}) => {
   const router = useRouter();
   const handleSelectedChat = useCallback((conversationId: string) => {
     router.push(`/chat/${conversationId}`);
@@ -62,4 +62,4 @@ const page: FC<pageProps> = ({}) => {
   );
 };
 
-export default page;
+export default ChatPage

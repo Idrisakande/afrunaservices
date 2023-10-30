@@ -52,6 +52,11 @@ import cam1 from "@/assests/imgs/cam1.png";
 import cam2 from "@/assests/imgs/cam2.png";
 import QRcode from "@/assests/imgs/QRcode.png";
 import photo from "@/assests/imgs/photo.png";
+import prodeatimg from "@/assests/imgs/prodeatimg.png";
+import detail1 from "@/assests/imgs/detail1.png";
+import detail2 from "@/assests/imgs/detail2.png"
+import detail3 from "@/assests/imgs/detail3.png";
+import detail4 from "@/assests/imgs/detail4.png";
 
 export const imgs = {
   afruna_main_logo,
@@ -106,5 +111,10 @@ export const imgs = {
   QRcode,
   cam1,
   cam2,
-  photo
+  photo,
+  prodeatimg,
+  detail1,
+  detail2,
+  detail3,
+  detail4,
 };

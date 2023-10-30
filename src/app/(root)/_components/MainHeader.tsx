@@ -41,7 +41,7 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
 
   const toggleCategoriesMenu = useCallback(
     () => setIsShow((prev) => !prev),
-    [isShow]
+    []
   );
 
   const handleHelpSelection = useCallback((value: string) => {

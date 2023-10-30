@@ -25,7 +25,7 @@ const ServicesCard: FC<ServicesCardProps> = ({ item }) => {
         <Link
           href={`/all_services/${item.services}`}
           className={classNames(
-            buttonVariants({ variant: "whiteButton" }),
+            buttonVariants({ variant: 'whiteButton' }),
             "text-sm lg:text-xs h-8 absolute top-3 left-4"
           )}
         >

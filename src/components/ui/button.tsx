@@ -16,6 +16,8 @@ const buttonVariants = cva(
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
           "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        afrunaOutline:
+          "font-semibold border border-sky-400 bg-white text-sky-500",
          yellowOutlineButton:
           "border border-orange-400 bg-white text-orange-400 hover: hover:",
          skyButton:
@@ -25,6 +27,7 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
+        whiteAfrunaButton: "bg-white text-afruna-blue",
         link: "text-orange-400 underline-offset-4 hover:underline",
       },
       size: {

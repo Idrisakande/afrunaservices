@@ -17,7 +17,7 @@ interface pageProps {
   }
 }
 
-const page: FC<pageProps> = ({ params: {conversationId} }) => {
+const ChatCovoPage: FC<pageProps> = ({ params: {conversationId} }) => {
   console.log(conversationId);
 
   const router = useRouter();
@@ -105,4 +105,4 @@ const page: FC<pageProps> = ({ params: {conversationId} }) => {
   );
 };
 
-export default page;
+export default ChatCovoPage

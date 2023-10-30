@@ -4,7 +4,6 @@ import { imgs } from "@/constants/images";
 import Image from "next/image";
 import { FC, ReactNode, useRef } from "react";
 import { FileInputButton } from "@files-ui/react";
-import { Button } from "@/components/ui/button";
 import { PhoneInput } from "react-international-phone";
 import ReactFlagsSelect from "react-flags-select";
 import "react-international-phone/style.css";
@@ -13,7 +12,7 @@ import { useForm } from "react-hook-form";
 
 interface pageProps {}
 
-const page: FC<pageProps> = ({}) => {
+const ProfilePage: FC<pageProps> = ({}) => {
   const {
     formState: { errors },
   } = useForm();
@@ -256,4 +255,4 @@ const page: FC<pageProps> = ({}) => {
   );
 };
 
-export default page;
+export default ProfilePage;
