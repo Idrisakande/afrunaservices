@@ -1,9 +1,16 @@
 "use client";
-
+import Cookies from "js-cookie";
 import { imgs } from "@/constants/images";
 // import { Input } from "@/li";
 import Image from "next/image";
-import { ChangeEventHandler, FC, useCallback, useRef, useState } from "react";
+import {
+  ChangeEventHandler,
+  FC,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   SubmitHandler,
   useForm,
@@ -24,6 +31,19 @@ import { Loader2 } from "lucide-react";
 import clsx from "clsx";
 import { Input } from "@/lib/utils/Input";
 import { Button } from "@/components/ui/button";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { TResponseError } from "@/types/errors";
+import { IUser } from "@/interfaces";
+import { useAppDispatch } from "@/hooks";
+import { setProfile } from "@/lib/redux/features/slices/profileSlice";
+import { login } from "@/lib/redux/features/slices/authSlice";
+import {
+  useLoginUserMutation,
+  useRegisterUserMutation,
+} from "@/lib/redux/features/apis/auth_api";
 
 interface AuthFormProps {}
 
@@ -63,16 +83,12 @@ const AuthForm: FC<AuthFormProps> = ({}) => {
     let country = getCountryUtil(value);
     setCountry(country);
   }, []);
-  const handleGoogleLogin = useCallback(async () => {
-    // const authService = new Auth10(router);
-    // const { data } = await authService.googlesignin();
-    // const URL = data.googleLoginUrl;
-    // window.open(URL, "mozillaWindow", "left=200,top=500,width=520,height=320");
-  }, []);
+  const handleGoogleLogin = useCallback(async () => {}, []);
   const {
+    formState: { errors, isValid },
     register,
+    reset,
     handleSubmit,
-    formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
       firstName: "",
@@ -81,16 +97,60 @@ const AuthForm: FC<AuthFormProps> = ({}) => {
       password: "",
     },
   });
+  const [userLogin, loginResult] = useLoginUserMutation();
+  const [userRegister, registerResult] = useRegisterUserMutation();
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const onSubmit: SubmitHandler<FieldValues> = useCallback(
-    (data) => {
+    async (data) => {
       if (variant === "REGISTER") {
-        // Axios register
+        const payload = Object.assign({}, { phoneNumber: phone }, data, {
+          country: country.Name,
+        });
+        if (!payload.firstname) {
+          toast.warning("First Name required!");
+          return;
+        } else if (!payload.lastName) {
+          toast.warning("Last Name required!");
+          return;
+        } else if (!payload.email) {
+          toast.warning("Email required!");
+          return;
+        } else if (!payload.password) {
+          toast.warning("Password required!");
+          return;
+        } else if (!payload.country) {
+          toast.warning("Country required!");
+          return;
+        } else if (!payload.phoneNumber) {
+          toast.warning("Phune number required!");
+          return;
+        } else {
+          await userRegister(payload);
+        }
       }
       if (variant === "LOGIN") {
-        // Axios login
+        const payload = Object.assign(
+          {},
+          { email: data.email as string, password: data.password as string }
+        );
+        const isValid = Object.values(payload)
+          //ensure all fields are not empty
+          .every((value) => {
+            if (!value) {
+              toast.warning("All fields are required!");
+              return false;
+            }
+            return true;
+          });
+
+        if (!isValid) {
+          return;
+        }
+        await userLogin(payload);
       }
     },
-    [variant]
+    [variant, phone, country.Name, userRegister, userLogin]
   );
   const [rememberMe, setRememberMe] = useState(false);
   const handleRememberMe: ChangeEventHandler<HTMLInputElement> = useCallback(
@@ -101,6 +161,74 @@ const AuthForm: FC<AuthFormProps> = ({}) => {
     (event) => setAgreed(event.target.checked),
     []
   );
+
+  useEffect(() => {
+    if (loginResult.isError) {
+      const error = loginResult.error as {
+        data: TResponseError;
+        status: number;
+      };
+      console.log("error", error);
+      toast.error(error.data.message);
+      return;
+    }
+    if (loginResult.isSuccess) {
+      const data = loginResult.data;
+      const user: IUser = data.data.user;
+      if (user.role === "user") {
+        Cookies.set("token", data.data.token);
+        dispatch(login());
+        dispatch(setProfile(user));
+        toast.success(data.message);
+        reset();
+        router.replace("/");
+      }
+      return;
+    }
+  }, [
+    dispatch,
+    loginResult.data,
+    loginResult.error,
+    loginResult.isError,
+    loginResult.isSuccess,
+    reset,
+    router,
+  ]);
+
+  //listens to after registeration
+  useEffect(() => {
+    if (registerResult.isError) {
+      const error = registerResult.error as {
+        data: TResponseError;
+        status: number;
+      };
+      console.log("error", error);
+      toast.error(error.data.message);
+      return;
+    }
+    if (registerResult.isSuccess) {
+      const data = registerResult.data;
+      const user: IUser = data.data.user;
+      if (user.role === "user") {
+        Cookies.set("token", data.data.token);
+        dispatch(login());
+        dispatch(setProfile(user));
+        toast.success(data.message);
+        reset();
+        router.replace("/");
+      }
+      return;
+    }
+  }, [
+    dispatch,
+    registerResult.data,
+    registerResult.error,
+    registerResult.isError,
+    registerResult.isSuccess,
+    reset,
+    router,
+  ]);
+
   return (
     <>
       <h1 className="w-fit mx-auto pt-8 pb-10 lg:pb-6 text-slate-900 text-2xl font-bold">
@@ -310,19 +438,23 @@ const AuthForm: FC<AuthFormProps> = ({}) => {
             </fieldset>
           ) : null}
           <Button
-            type="button"
+            type="submit"
             // !agreed && "cursor-not-allowed"
             variant={"primary"}
             // fullWidth
             // disabled={!agreed && opt.isLoading}
-            className={`h-10 font-semibold text-white rounded-md my-6 w-full`}
+            className={`h-10 font-semibold text-white  rounded-md my-6 w-full gap-2`}
           >
-            {false ? (
+            {variant === "REGISTER" && registerResult.isLoading && (
               <Loader2 className=" h-6 w-6 text-black animate-spin" />
-            ) : variant === "REGISTER" ? (
-              "Sign up"
+            )}
+            {variant === "LOGIN" && loginResult.isLoading && (
+              <Loader2 className=" h-6 w-6 text-black animate-spin" />
+            )}
+            {variant === "REGISTER" ? (
+              <span>Sign up</span>
             ) : (
-              "Log in"
+              <span>Log in</span>
             )}
           </Button>
 

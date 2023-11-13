@@ -24,6 +24,8 @@ import { ItemPicker } from "@/lib/utils/ItemPicker";
 import { AiFillAccountBook } from "react-icons/ai";
 import { FiChevronDown } from "react-icons/fi";
 import AllServicesModel from "@/components/AllServicesModel";
+import { useAppSelector } from "@/hooks";
+import { profile } from "console";
 
 interface MainHeaderProps {}
 
@@ -33,6 +35,8 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
   const [selectedcategory, setselectedCategory] = useState("");
 
   const router = useRouter();
+  const {profile_data} = useAppSelector((state) => state.profile);
+;
 
   const toggleCategoryMenu = useCallback(
     () => setIsCategoryMenuOpen(!isCategoryMenuOpen),
@@ -92,18 +96,20 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
             >
               Home
             </Link>
-            <button onClick={() => {
-              show ? setShow(false) : setShow(true)
-            }} className=" flex justify-center items-center gap-1 text-afruna-blue text-xs xl:text-sm">
+            <button
+              onClick={() => {
+                show ? setShow(false) : setShow(true);
+              }}
+              className=" flex justify-center items-center gap-1 text-afruna-blue text-xs xl:text-sm"
+            >
               Service{" "}
               <FiChevronDown
                 className={`${
                   show && "rotate-180"
                 } text-xl transition ease-linear duration-300`}
               />
-              
             </button>
-            {show ? <AllServicesModel/>: null}
+            {show ? <AllServicesModel /> : null}
             <Link
               href={"/providers"}
               className="hover:scale-95 duration-300 text-xs xl:text-sm"
@@ -133,17 +139,17 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
                 </Link>
                 <ItemPicker
                   mobileClassName="hidden md:flex lg:hidden xl:flex text-sm lg:text-base"
-                  triggerClassName="flex gap-2 items-center"
+                  triggerClassName="flex gap-2 items-center capitalize"
                   contentClassName={
                     "bg-white p-4 text-afruna-blue w-40 text-xs z-30 rounded-md"
                   }
                   getSelected={(val) => console.log(val)}
                   leftTriggerIcon={
                     <div className="w-[1.6rem] h-[1.6rem] md:w-8 md:h-8 lg:w-10 lg:h-10  rounded-full transition-all hover:scale-90 ease-in-out duration-300 overflow-hidden relative flex justify-center items-center">
-                      <Image src={imgs.seller1} alt="Your image" fill />
+                      <Image src={profile_data?.avatar??imgs.seller1} alt="Your image" fill />
                     </div>
                   }
-                  placeholder={`Akande Idris`}
+                  placeholder={`${profile_data?.firstName} ${profile_data?.lastName}`}
                   profileLinks={[
                     {
                       name: "Profile",

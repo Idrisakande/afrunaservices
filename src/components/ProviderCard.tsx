@@ -4,20 +4,22 @@ import { Button } from "./ui/button";
 import Image from "next/image";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { IoMdCheckmark } from "react-icons/io";
+import { IUser } from "@/interfaces";
+import { imgs } from "@/constants/images";
 
 interface ProviderCardProps {
-  item: IProvider
+  item: IUser|IProvider
 }
 
 export const ProviderCard: FC<ProviderCardProps> = ({ item }) => {
   return (
     <div className="bg-white rounded-lg max-w-[20rem] sm:max-w-[18rem] lg:max-w-[16rem] mx-auto p-4 md:px-4 py-10 w-full shadow-md flex flex-col gap-4">
       <div className="mx-auto w-[6.5rem] h-[6.5rem] rounded-md overflow-hidden md:w-[6rem] md:h-[6rem] relative flex justify-center items-center">
-        <Image src={item.img1} alt={`seler image`} fill />
+        <Image src={item.avatar??imgs.provider1} alt={`seler image`} fill />
       </div>
       <div className="mt-1 flex justify-start flex-col px-4">
         <div className="flex items-center gap-2">
-          <h2 className=" text-afruna-blue font-bold lg:text-sm">{item.name}</h2>{" "}
+          <h2 className=" text-afruna-blue font-bold lg:text-sm">{item.firstName}  {item.lastName}</h2>{" "}
           <span className="rounded-full text-xs text-green-700 w-[1.2rem] h-[1.2rem] bg-green-300  flex justify-center items-center">
           <IoMdCheckmark size={14} />
           </span>
