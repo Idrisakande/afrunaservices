@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { REHYDRATE } from "redux-persist";
 import Cookies from "js-cookie";
-import { IUser } from "@/interfaces";
-export const providersApi = createApi({
-  reducerPath: "providersApi",
+import { IService } from "@/interfaces/data.interface";
+import { IServicesResponse } from "@/interfaces";
+export const servicesApi = createApi({
+  reducerPath: "servicesApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
     prepareHeaders: async (headers) => {
@@ -12,13 +13,15 @@ export const providersApi = createApi({
     },
   }),
   endpoints: (build) => ({
-    getProviders: build.query<IUser[], void>({
-      query: () => "/users?limit=100",
-      transformResponse(response: {data: IUser[]}) {
-          const provider =  response.data.filter(user => user.role === "provider");
-          //get the services offered by the provider.
-          return provider;
-      },
+    getServices: build.query<IServicesResponse, void>({
+      query: () => "/services",
+      
+    }),
+    getServicesByCount: build.query<IServicesResponse, number>({
+      query: (count:number) => `/services?limit=${count}`,
+    }),
+    getServicesByPage: build.query<IServicesResponse, number>({
+      query: (page:number) => `/services?page=${page}`,
     }),
   }),
   extractRehydrationInfo(action, { reducerPath }) {
@@ -35,4 +38,4 @@ export const providersApi = createApi({
   },
 });
 
-export const { useGetProvidersQuery } = providersApi;
+export  const {useGetServicesByCountQuery,useGetServicesQuery,useGetServicesByPageQuery} = servicesApi;

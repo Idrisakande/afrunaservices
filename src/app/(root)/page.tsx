@@ -1,3 +1,4 @@
+"use client";
 import CategoryCard from "@/components/CategoryCard";
 import Landingbannar from "@/components/Landingbannar";
 import { NewsLetter } from "@/components/NewsLetter";
@@ -8,16 +9,22 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import {
   feautureCategories,
   operationMethods,
-  providers,
-  services,
 } from "@/constants/data";
 import { imgs } from "@/constants/images";
+import { useGetCategoriesByCountsQuery } from "@/lib/redux/features/apis/categories_api";
+import { useGetProvidersQuery } from "@/lib/redux/features/apis/providers_api";
+import { useGetServicesByCountQuery } from "@/lib/redux/features/apis/services_api";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 
 export default function Home() {
-  return (
+  const { data, isSuccess } = useGetCategoriesByCountsQuery(8);
+  const services = useGetServicesByCountQuery(10);
+  const providers = useGetProvidersQuery();
+
+    return (
     <main className="flex flex-col">
       <Landingbannar />
       {/* black friday section */}
@@ -50,9 +57,10 @@ export default function Home() {
         </h1>
         <p className="text-afruna-gray md:mt-2">What services do you need?</p>
         <div className="flex flex-row flex-wrap sm:justify-center gap-6 md:gap-8 mt-8 lg:mt-10 ">
-          {feautureCategories.slice(0, 8).map((item) => {
-            return <CategoryCard key={item.text} item={item} />;
-          })}
+          {isSuccess &&
+            data?.data.map((item) => {
+              return <CategoryCard key={item._id} item={item} />;
+            })}
         </div>
         <div className="my-4 md:flex justify-end">
           <Link
@@ -151,9 +159,11 @@ export default function Home() {
           </div>
         </div>
         <div className="flex flex-wrap gap-4 mt-8 ">
-          {services.slice(0, 3).map((item) => {
-            return <ServicesCard key={item.services} item={item} />;
-          })}
+          
+           {
+          services.isSuccess && services.data.data.length > 0? services.data.data.map((item)=> <ServicesCard item={item} key={item._id} />): <>No data</>
+           }
+         
         </div>
       </section>
       {/* services provider section */}
@@ -177,9 +187,7 @@ export default function Home() {
           </div>
         </div>
         <div className="flex flex-row flex-wrap sm:justify-center gap-6 mt-8 lg:mt-10">
-          {providers.slice(0, 4).map((item) => {
-            return <ProviderCard key={item.rating} item={item} />;
-          })}
+        {providers.isSuccess && providers.data.length > 0? providers.data.map(provider => <ProviderCard key={provider._id} item={provider} />):<>No data</>}
         </div>
       </section>
       {/* testimonial section */}

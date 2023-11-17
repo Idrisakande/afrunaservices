@@ -62,9 +62,8 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
   }, []);
 
   const handleLogOut = useCallback(() => {
-    //   const authService = new Auth10(router);
-    //   authService.handleLogout();
-  }, []);
+    router.replace("/authentication");
+  }, [router]);
   const [show, setShow] = useState<boolean>(true);
   return (
     <header className="sticky top-0 bg-gradient-to-r from-orange-300 to-orange-50 z-30">

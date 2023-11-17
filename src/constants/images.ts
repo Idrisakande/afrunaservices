@@ -57,8 +57,10 @@ import detail1 from "@/assests/imgs/detail1.png";
 import detail2 from "@/assests/imgs/detail2.png"
 import detail3 from "@/assests/imgs/detail3.png";
 import detail4 from "@/assests/imgs/detail4.png";
+import noServicesFound from "@/assests/imgs/noServiceFound.png"
 
 export const imgs = {
+  noServicesFound,
   afruna_main_logo,
   seller1,
   hero1,

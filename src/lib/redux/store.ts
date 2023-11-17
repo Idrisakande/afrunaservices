@@ -4,12 +4,14 @@ import { persistStore } from "redux-persist";
 import rootReducer from "./features/slices";
 import { authApi } from "./features/apis/auth_api";
 import { providersApi } from "./features/apis/providers_api";
+import { categoryApi } from "./features/apis/categories_api";
+import {servicesApi} from "./features/apis/services_api"
 
 export const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
     middleware: (gDM) =>
-      gDM().concat(authApi.middleware, providersApi.middleware),
+      gDM().concat(authApi.middleware, categoryApi.middleware,providersApi.middleware,servicesApi.middleware),
   });
 };
 

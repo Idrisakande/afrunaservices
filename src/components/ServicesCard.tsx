@@ -8,11 +8,13 @@ import Image from "next/image";
 import { BsHeartFill, BsStarFill } from "react-icons/bs";
 import Link from "next/link";
 import classNames from "classnames";
+import { IServices } from "@/interfaces";
 // import { useRouter } from "next/navigation";
 
 interface ServicesCardProps {
-  item: IService;
+  item: IServices;
 }
+
 
 const ServicesCard: FC<ServicesCardProps> = ({ item }) => {
   // const {} = useRouter()

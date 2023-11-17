@@ -107,7 +107,9 @@ const AuthForm: FC<AuthFormProps> = ({}) => {
         const payload = Object.assign({}, { phoneNumber: phone }, data, {
           country: country.Name,
         });
-        if (!payload.firstname) {
+        console.log(payload);
+        
+        if (!payload.firstName) {
           toast.warning("First Name required!");
           return;
         } else if (!payload.lastName) {
@@ -118,6 +120,10 @@ const AuthForm: FC<AuthFormProps> = ({}) => {
           return;
         } else if (!payload.password) {
           toast.warning("Password required!");
+          return;
+        
+        } else if (payload.confirmPassword  !==  payload.password) {
+          toast.warning("Must match with password!");
           return;
         } else if (!payload.country) {
           toast.warning("Country required!");
@@ -215,7 +221,7 @@ const AuthForm: FC<AuthFormProps> = ({}) => {
         dispatch(setProfile(user));
         toast.success(data.message);
         reset();
-        router.replace("/");
+        router.replace("/authentication");
       }
       return;
     }

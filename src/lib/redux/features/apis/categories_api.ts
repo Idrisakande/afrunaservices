@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { REHYDRATE } from "redux-persist";
 import Cookies from "js-cookie";
-import { IUser } from "@/interfaces";
-export const providersApi = createApi({
-  reducerPath: "providersApi",
+import { ICategoriesResponse } from "@/interfaces";
+export const categoryApi = createApi({
+  reducerPath: "categoryApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
     prepareHeaders: async (headers) => {
@@ -12,13 +12,14 @@ export const providersApi = createApi({
     },
   }),
   endpoints: (build) => ({
-    getProviders: build.query<IUser[], void>({
-      query: () => "/users?limit=100",
-      transformResponse(response: {data: IUser[]}) {
-          const provider =  response.data.filter(user => user.role === "provider");
-          //get the services offered by the provider.
-          return provider;
-      },
+    getCategories: build.query<ICategoriesResponse, void>({
+      query: () => "/servicecategories",
+    }),
+    getCategoriesByPagination: build.query<ICategoriesResponse, number>({
+      query: (page: number) => `/servicecategories?page=${page}`,
+    }),
+    getCategoriesByCounts: build.query<ICategoriesResponse, number>({
+      query: (limit: number) => `/servicecategories?limit=${limit}`,
     }),
   }),
   extractRehydrationInfo(action, { reducerPath }) {
@@ -35,4 +36,8 @@ export const providersApi = createApi({
   },
 });
 
-export const { useGetProvidersQuery } = providersApi;
+export const {
+  useGetCategoriesQuery,
+  useGetCategoriesByCountsQuery,
+  useLazyGetCategoriesByPaginationQuery,
+} = categoryApi;
