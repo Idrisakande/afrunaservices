@@ -3,8 +3,9 @@
 import ItemPicker from "@/components/ItemPicker";
 import { NewsLetter } from "@/components/NewsLetter";
 import ServicesCard from "@/components/ServicesCard";
-import { services } from "@/constants/data";
+import NoServicesFound from "@/components/ui/NoServicesFound";
 import { imgs } from "@/constants/images";
+import { useGetServiceByIdQuery, useGetServicesByCategoryIdQuery } from "@/lib/redux/features/apis/services_api";
 import Image from "next/image";
 import { FC } from "react";
 import { AiFillAppstore } from "react-icons/ai";
@@ -12,32 +13,46 @@ import { BiMenu } from "react-icons/bi";
 
 interface pageProps {
   params: {
-    service: string;
+    id: string;
   };
 }
 
-const page: FC<pageProps> = ({ params: { service } }) => {
-  console.log(service);
-
+const Page: FC<pageProps> = ({ params: { id } }) => {
+  const { data } = useGetServiceByIdQuery(id);
+  const _service = data?.data;
+  const sevicesRequest = useGetServicesByCategoryIdQuery(_service?.category as string);
+  const _services = sevicesRequest.data;
   return (
     <main>
       {/*  Different service detai */}
       <section className="w-full relative h-[22rem] px-4 xl:px-40 flex flex-col gap-6 sm:flex-row justify-center items-center sm:justify-start">
         <div className="hidden md:block absolute bottom-0 right-0">
           <div className="w-[25rem] h-[22rem] overflow-hidden relative rounded-sm">
-            <Image src={imgs.testing} alt="partner" priority fill />
+            <Image
+              src={
+                _service && _service?.photos.length > 0
+                  ? _service?.photos[0]
+                  : imgs.testing
+              }
+              alt="partner"
+              priority
+              fill
+            />
           </div>
         </div>
 
         <div className="w-full h-[15rem] lg:w-[23rem] lg:h-[15rem] overflow-hidden relative rounded-sm">
           <Image src={imgs.detailservice} alt="partner" priority fill />
         </div>
-        <h2 className="text-xl font-semibold md:text-2xl text-afruna-blue">{service} Services</h2>
+        <h2 className="text-xl font-semibold md:text-2xl text-afruna-blue">
+          {_service?.name}
+        </h2>
       </section>
       {/* filtering section */}
       <section className="flex flex-col gap-3 justify-start items-start sm:flex-row sm:justify-between px-4 py-4 md:py-6 sm:items-center sm:px-8 xl:px-40 bg-white">
         <p className="text-sm">
-          12 result in <span className="font-bold">Home Service</span>
+          {_services?.data.length} result in{" "}
+          <span className="font-bold">{_services?.totalDocs}</span>
         </p>
         <div className="flex flex-wrap items-center justify-start sm:justify-end gap-3 ">
           <fieldset className="flex w-fit flex-col gap-1 ">
@@ -84,17 +99,19 @@ const page: FC<pageProps> = ({ params: { service } }) => {
         </div>
       </section>
       {/* services */}
-      <section className="flex flex-col lg:px-8 xl:px-20 lg:pb-12 px-4">
-        <div className="flex flex-wrap sm:justify-center gap-4 mt-8 ">
-          {services.slice(0, 9).map((item) => {
-            return <ServicesCard key={item.services} item={item} />;
-          })}
-        </div>
-      </section>
+{_services && _services.data.length > 0?(
+          <section className="flex flex-col lg:px-8 xl:px-20 lg:pb-12 px-4">
+          <div className="flex flex-wrap sm:justify-center gap-4 mt-8 ">
+            {_services.data.map((item) => {
+              return <ServicesCard key={item._id} item={item} />;
+            })}
+          </div>
+        </section>
+):<NoServicesFound />}
       {/* newsletter */}
-      <NewsLetter />
+      {/*     <NewsLetter /> */}
     </main>
   );
 };
 
-export default page;
+export default Page;

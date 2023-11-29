@@ -10,9 +10,6 @@ interface pageProps {}
 
 const Page: FC<pageProps> = ({}) => {
   const { data, error, isLoading } = useGetProvidersQuery();
-
-  if (isLoading) return <PageLoader />;
-
   return (
     <>
       <section className="bg-white flex justify-center flex-col font-bold items-center gap-4 h-[11rem]">
@@ -31,7 +28,7 @@ const Page: FC<pageProps> = ({}) => {
           : null}
       </section>
       {/* newsletter */}
-      <NewsLetter />
+    {/*   <NewsLetter /> */}
     </>
   );
 };

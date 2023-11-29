@@ -93,8 +93,12 @@ module.exports = {
           "linear-gradient(135deg, #F2F4FF 0%, #FAFAFF 100%)",
         "gradient-showcase":
           "linear-gradient(93.46deg, #06598F 69.49%, #FED6AC 137.07%)",
-      
-
+        "gradient-action-btn":
+          "linear-gradient(135deg, #52E5E7 0%, #130CB7 100%)",
+        "gradient-action-provider":
+          "linear-gradient(135deg, #00AEEF 0%, #0C0E3B 100%)",
+        "gradient-action-service":
+          "linear-gradient(160deg, rgba(155, 228, 255, 0.45) 0%, rgba(242, 243, 255, 0.00) 219.28%)",
       },
     },
   },

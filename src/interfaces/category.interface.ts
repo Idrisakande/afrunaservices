@@ -5,6 +5,11 @@ export interface ICategory {
   options: [];
 }
 
+export interface ICategoryResponse {
+  success: boolean;
+  message: string;
+  data: ICategory;
+}
 export interface ICategoriesResponse {
   success: boolean;
   message: string;

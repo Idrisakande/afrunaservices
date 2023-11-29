@@ -7,7 +7,6 @@ import ServicesCard from "@/components/ServicesCard";
 import TestimonialSlider from "@/components/TestimonialSlider";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
-  feautureCategories,
   operationMethods,
 } from "@/constants/data";
 import { imgs } from "@/constants/images";
@@ -16,11 +15,10 @@ import { useGetProvidersQuery } from "@/lib/redux/features/apis/providers_api";
 import { useGetServicesByCountQuery } from "@/lib/redux/features/apis/services_api";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 
 export default function Home() {
-  const { data, isSuccess } = useGetCategoriesByCountsQuery(8);
+  const { data, isSuccess } = useGetCategoriesByCountsQuery(10);
   const services = useGetServicesByCountQuery(10);
   const providers = useGetProvidersQuery();
 
@@ -161,9 +159,8 @@ export default function Home() {
         <div className="flex flex-wrap gap-4 mt-8 ">
           
            {
-          services.isSuccess && services.data.data.length > 0? services.data.data.map((item)=> <ServicesCard item={item} key={item._id} />): <>No data</>
+          services.isSuccess && services.data.data.length > 0? services.data.data.map((item)=> <ServicesCard item={item} key={item._id} />): null
            }
-         
         </div>
       </section>
       {/* services provider section */}
@@ -187,7 +184,7 @@ export default function Home() {
           </div>
         </div>
         <div className="flex flex-row flex-wrap sm:justify-center gap-6 mt-8 lg:mt-10">
-        {providers.isSuccess && providers.data.length > 0? providers.data.map(provider => <ProviderCard key={provider._id} item={provider} />):<>No data</>}
+        {providers.isSuccess && providers.data.length > 0? providers.data.slice(0,10).map(provider => <ProviderCard key={provider._id} item={provider} />):null}
         </div>
       </section>
       {/* testimonial section */}
@@ -230,7 +227,7 @@ export default function Home() {
         </div>
       </section>
       {/* Newsletter */}
-      <NewsLetter />
+    {/*   <NewsLetter /> */}
     </main>
   );
 }

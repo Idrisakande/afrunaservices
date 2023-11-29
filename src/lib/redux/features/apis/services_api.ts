@@ -1,16 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { REHYDRATE } from "redux-persist";
 import Cookies from "js-cookie";
-import { IService } from "@/interfaces/data.interface";
-import { IServicesResponse } from "@/interfaces";
+import { IServiceResponse, IServicesResponse } from "@/interfaces";
+import { prepareHeaders } from "@/utils/prepare_header";
+
 export const servicesApi = createApi({
   reducerPath: "servicesApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
-    prepareHeaders: async (headers) => {
-      headers.set("Authorization", `Bearer ${Cookies.get("token")}`);
-      return headers;
-    },
+    prepareHeaders
   }),
   endpoints: (build) => ({
     getServices: build.query<IServicesResponse, void>({
@@ -22,6 +20,15 @@ export const servicesApi = createApi({
     }),
     getServicesByPage: build.query<IServicesResponse, number>({
       query: (page:number) => `/services?page=${page}`,
+    }),
+    getServiceById: build.query<IServiceResponse, string>({
+      query: (id:string) => `/services/${id}`,
+    }),
+    getServicesByProviderId: build.query<IServicesResponse, string>({
+      query: (id:string) => `/services/${id}/provider`,
+    }),
+    getServicesByCategoryId: build.query<IServicesResponse, string>({
+      query: (id:string) => `services/${id}/category`,
     }),
   }),
   extractRehydrationInfo(action, { reducerPath }) {
@@ -38,4 +45,4 @@ export const servicesApi = createApi({
   },
 });
 
-export  const {useGetServicesByCountQuery,useGetServicesQuery,useGetServicesByPageQuery} = servicesApi;
+export  const {useGetServicesByCountQuery,useGetServicesQuery,useGetServicesByPageQuery,useGetServicesByProviderIdQuery,useGetServiceByIdQuery,useGetServicesByCategoryIdQuery} = servicesApi;

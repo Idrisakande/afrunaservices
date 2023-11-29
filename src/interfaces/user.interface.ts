@@ -20,4 +20,13 @@ export interface IUser {
   avatar: string;
   blocked?: boolean;
 }
-
+export interface IUserResponse {
+  success: boolean;
+  message: string;
+  data: IUser;
+}
+export interface IUsersResponse {
+  success: boolean;
+  message: string;
+  data: IUser[];
+}

@@ -3,6 +3,11 @@
 import AddReviewModel from "@/components/AddReviewModel";
 import { Button } from "@/components/ui/button";
 import { imgs } from "@/constants/images";
+import { ICategory, ICategoryResponse, IUser } from "@/interfaces";
+import { IService, IServiceResponse } from "@/interfaces/services.interface";
+import { IUserResponse } from "@/interfaces/user.interface";
+import { useGetBookingsQuery } from "@/lib/redux/features/apis/bookings_api";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { FC, useState } from "react";
@@ -17,6 +22,7 @@ interface pageProps {}
 
 const BookingsPage: FC<pageProps> = ({}) => {
   const [open, setOpen] = useState<boolean>(false);
+  const {isSuccess,data} = useGetBookingsQuery();
   return (
     <section className="flex flex-col gap-6 max-w-[94%] md:max-w-[100%] mx-auto">
       <h1 className="text-xl pl-2 lg:pl-0 lg:text-2xl leading-3 text-afruna-blue font-bold">
@@ -24,7 +30,17 @@ const BookingsPage: FC<pageProps> = ({}) => {
       </h1>
       <div className="flex flex-col gap-4 max-w-[95%] lg:max-w-[100%] mx-auto w-full">
         {/* Booking */}
-        <div className="py-6 px-8 lg:max-w-[90%] flex flex-col lg:gap-8 lg:flex-row justify-between w-full bg-white drop-shadow rounded-lg">
+      {isSuccess? data.data.map((booking) => {
+      
+      // var providerDetails: IUser;
+      // var categoryDetails:ICategory;
+      // var serviceDetails:IService;
+
+      // axios.get<IUserResponse>(`/api/users/${booking.providerId}`).then(res => providerDetails = res.data.data);
+      // axios.get<IServiceResponse>(`/api/services/${booking.serviceId}`).then(res => serviceDetails = res.data.data);
+        
+        return (
+          <div key={booking._id} className="py-6 px-8 lg:max-w-[90%] flex flex-col lg:gap-8 lg:flex-row justify-between w-full bg-white drop-shadow rounded-lg">
           <div className="flex flex-col items-center sm:flex-row lg:max-w-[75%] w-full gap-6">
             <div className="flex justify-center items-center w-full h-[12rem] sm:w-[13rem] sm:h-[9rem]">
               <div className="w-full h-full overflow-hidden relative rounded-md">
@@ -96,8 +112,10 @@ const BookingsPage: FC<pageProps> = ({}) => {
             </Button>
           </div>
         </div>
+        )
+      }):null}
         {/* Booking */}
-        <div className="py-6 px-8 lg:max-w-[90%] flex flex-col lg:gap-8 lg:flex-row justify-between w-full bg-white drop-shadow rounded-lg">
+        {/* <div className="py-6 px-8 lg:max-w-[90%] flex flex-col lg:gap-8 lg:flex-row justify-between w-full bg-white drop-shadow rounded-lg">
           <div className="flex flex-col items-center sm:flex-row lg:max-w-[75%] w-full gap-6">
             <div className="flex justify-center items-center w-full h-[12rem] sm:w-[13rem] sm:h-[9rem]">
               <div className="w-full h-full overflow-hidden relative rounded-md">
@@ -200,9 +218,9 @@ const BookingsPage: FC<pageProps> = ({}) => {
               View details
             </Link>
           </div>
-        </div>
+        </div> */}
         {/* Booking */}
-        <div className="py-6 px-8 lg:max-w-[90%] flex flex-col lg:gap-8 lg:flex-row justify-between w-full bg-white drop-shadow rounded-lg">
+        {/* <div className="py-6 px-8 lg:max-w-[90%] flex flex-col lg:gap-8 lg:flex-row justify-between w-full bg-white drop-shadow rounded-lg">
           <div className="flex flex-col items-center sm:flex-row lg:max-w-[75%] w-full gap-6">
             <div className="flex justify-center items-center w-full h-[12rem] sm:w-[13rem] sm:h-[9rem]">
               <div className="w-full h-full overflow-hidden relative rounded-md">
@@ -276,7 +294,7 @@ const BookingsPage: FC<pageProps> = ({}) => {
               </Button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

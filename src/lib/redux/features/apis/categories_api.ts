@@ -1,19 +1,19 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { REHYDRATE } from "redux-persist";
-import Cookies from "js-cookie";
-import { ICategoriesResponse } from "@/interfaces";
+import { prepareHeaders } from "@/utils/prepare_header";
+import { ICategoriesResponse, ICategory, ICategoryResponse } from "@/interfaces";
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
-    prepareHeaders: async (headers) => {
-      headers.set("Authorization", `Bearer ${Cookies.get("token")}`);
-      return headers;
-    },
+    prepareHeaders
   }),
   endpoints: (build) => ({
     getCategories: build.query<ICategoriesResponse, void>({
       query: () => "/servicecategories",
+    }),
+    getCategoryById: build.query<ICategoryResponse, string>({
+      query:(id:string) => `/servicecategories/${id}`
     }),
     getCategoriesByPagination: build.query<ICategoriesResponse, number>({
       query: (page: number) => `/servicecategories?page=${page}`,
@@ -40,4 +40,6 @@ export const {
   useGetCategoriesQuery,
   useGetCategoriesByCountsQuery,
   useLazyGetCategoriesByPaginationQuery,
+  useGetCategoryByIdQuery,
+  useGetCategoriesByPaginationQuery
 } = categoryApi;

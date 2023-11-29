@@ -3,13 +3,23 @@
 import { NewsLetter } from "@/components/NewsLetter";
 import { Button } from "@/components/ui/button";
 import { imgs } from "@/constants/images";
+import { useBookServiceMutation } from "@/lib/redux/features/apis/bookings_api";
+import { useGetCategoryByIdQuery } from "@/lib/redux/features/apis/categories_api";
+import { useGetServiceByIdQuery } from "@/lib/redux/features/apis/services_api";
+import { useGetUserQuery } from "@/lib/redux/features/apis/user_api";
 import { Input } from "@/lib/utils/Input";
+import axios from "axios";
+import getSymbolFromCurrency from "currency-symbol-map";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { BsStarFill } from "react-icons/bs";
 import { HiLocationMarker, HiMail } from "react-icons/hi";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
+import { Loader } from "lucide-react";
+import { useAppSelector } from "@/hooks";
 
 interface pageProps {
   params: {
@@ -18,20 +28,70 @@ interface pageProps {
 }
 
 const BookingsPage: FC<pageProps> = ({ params: { bookingId } }) => {
-  console.log(bookingId);
+  const router = useRouter();
+  const {profile_data} = useAppSelector((state)=>state.profile);
   const {
     register,
     formState: { errors },
   } = useForm();
 
-  const {push} = useRouter()
+  const { data } = useGetServiceByIdQuery(bookingId);
+  const [makeBooking, bookingResponse] = useBookServiceMutation();
+  const service = data?.data;
+  const userRequest = useGetUserQuery(service?.providerId as string);
+  const categoryRequest = useGetCategoryByIdQuery(service?.category as string);
+  const category = categoryRequest.data?.data;
+  const provider = userRequest.data?.data;
+  const handleBooking = useCallback(async () => {
+    if (service) {
+      const payload = {
+        amount: service.price + 1000,
+        location: `${profile_data?.country}`,
+        serviceId: bookingId,
+      }
+      await makeBooking(payload);
+      
+      if (bookingResponse.isError) {
+        toast.warn("Booking failed, try again!");
+      } else {
+        if (bookingResponse.isSuccess){
+          toast.info("Confirmed! Redirecting to payment");
+          const bookingData = bookingResponse.data?.data;
+          try {
+            const res = await axios.post<{
+              success: boolean;
+              message: string;
+              data: {
+                authorization_url: string;
+                access_code: string;
+                reference: string;
+              };
+            }>(
+              "/api/transactions/service?url=localhost:3000/bookings",
+              { bookingId: bookingData?._id },
+              {
+                headers: {
+                  Authorization: `Bearer ${Cookies.get("token")}`,
+                },
+              }
+            );
+            window.location.replace(res.data.data.authorization_url);
+          } catch (error) {
+            toast.warn("Payment failed");
+            router.replace("/bookings");
+          }
+        }
+      
+      }
+    }
+  }, [service, profile_data?.country, bookingId, makeBooking, bookingResponse.isError, bookingResponse.isSuccess, bookingResponse.data?.data, router]);
 
   return (
     <>
       <section className="bg-white flex justify-center flex-col font-bold items-center gap-4 h-[10rem]">
         <h1 className="text-[1.8rem]">Service Booking</h1>
         <div className="flex items-center justify-center gap-2">
-          <span className=" text-afruna-blue text-lg">Home</span>
+          <span className=" text-afruna-blue text-lg">{service?.name}</span>
           <span className="w-[0.4rem] h-[0.4rem] rounded-full bg-sky-500"></span>
           <span className=" text-afruna-gray">Booking Confirmation</span>
         </div>
@@ -44,21 +104,29 @@ const BookingsPage: FC<pageProps> = ({ params: { bookingId } }) => {
           </div>
           <div className="flex flex-col gap-2 justify-start">
             <span className="py-1 px-6 w-fit bg-sky-100 text-sky-500 text-xs">
-              Event
+              {category?.name}
             </span>
             <h3 className="text-sm my-[0.68rem] font-semibold w-fit text-afruna-blue">
-              Videography and Image editing
+              {service?.name}
             </h3>
             <div className="flex justify-start w-fit gap-2 items-center">
               <div className=" w-[3rem] h-[3rem] rounded-full overflow-hidden relative flex justify-center items-center">
-                <Image src={imgs.seller1} alt={`vendor image`} fill />
+                <Image
+                  src={provider?.avatar ?? imgs.anonyUser}
+                  alt={`vendor image`}
+                  fill
+                />
               </div>
               <div className="flex flex-col gap-2">
-                <h2 className="text-[0.8rem] font-semibold">Hallu matinex</h2>
+                <h2 className="text-[0.8rem] font-semibold">
+                  {provider?.firstName} {provider?.lastName}
+                </h2>
                 <div className="flex justify-start items-center gap-2 text-xs">
                   <BsStarFill className="text-afruna-gold text-xs" />
-                  4.9{" "}
-                  <span className=" text-afruna-gray text-xs ml-2">(213)</span>
+                  {service?.ratings}{" "}
+                  <span className=" text-afruna-gray text-xs ml-2">
+                    ({service?.ratedBy})
+                  </span>
                 </div>
               </div>
             </div>
@@ -72,7 +140,8 @@ const BookingsPage: FC<pageProps> = ({ params: { bookingId } }) => {
                   Service Cost{" "}
                 </div>
                 <span className="text-sm text-afruna-blue font-extrabold">
-                  #4200.00
+                  {getSymbolFromCurrency("NGN")}
+                  {service?.price.toLocaleString()}
                 </span>
               </div>
               <div className="flex gap-2 flex-col justify-start ">
@@ -81,7 +150,7 @@ const BookingsPage: FC<pageProps> = ({ params: { bookingId } }) => {
                   Location{" "}
                 </div>
                 <span className="text-[0.68rem] text-afruna-gray">
-                  Marabara Kaunds
+                  {service?.state}, {service?.country}
                 </span>
               </div>
               <div className="flex gap-2 flex-col justify-start ">
@@ -90,13 +159,24 @@ const BookingsPage: FC<pageProps> = ({ params: { bookingId } }) => {
                   Email{" "}
                 </div>
                 <span className="text-[0.68rem] text-afruna-gray">
-                  marabara@gmail.com
+                  {provider?.email}
                 </span>
               </div>
             </div>
           </div>
         </div>
-        <section className="flex flex-col mt-4 gap-2 w-fit">
+        <div className="flex justify-end">
+          <Button
+            disabled={bookingResponse.isLoading}
+            variant={"primary"}
+            type="button"
+            onClick={handleBooking}
+          >
+            {bookingResponse.isLoading && <Loader/>}
+            Confirm service booking
+          </Button>
+        </div>
+        {/* <section className="flex flex-col mt-4 gap-2 w-fit">
           <h2 className="text-lg font-bold text-afruna-blue">
             {" "}
             Work Commencement date
@@ -131,12 +211,12 @@ const BookingsPage: FC<pageProps> = ({ params: { bookingId } }) => {
               Confirm service booking
             </Button>
           </div>
-        </form>
+        </form> */}
       </section>
       {/* newsletter */}
-      <NewsLetter />
+      {/*     <NewsLetter /> */}
     </>
   );
 };
 
-export default BookingsPage
+export default BookingsPage;

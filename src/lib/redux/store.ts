@@ -5,13 +5,24 @@ import rootReducer from "./features/slices";
 import { authApi } from "./features/apis/auth_api";
 import { providersApi } from "./features/apis/providers_api";
 import { categoryApi } from "./features/apis/categories_api";
-import {servicesApi} from "./features/apis/services_api"
+import { reviewsApi } from "./features/apis/reviews_api";
+import { servicesApi } from "./features/apis/services_api";
+import { userApi } from "./features/apis/user_api";
+import { bookingsApi } from "./features/apis/bookings_api";
 
 export const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
     middleware: (gDM) =>
-      gDM().concat(authApi.middleware, categoryApi.middleware,providersApi.middleware,servicesApi.middleware),
+      gDM().concat(
+        authApi.middleware,
+        bookingsApi.middleware,
+        categoryApi.middleware,
+        providersApi.middleware,
+        reviewsApi.middleware,
+        servicesApi.middleware,
+        userApi.middleware
+      ),
   });
 };
 

@@ -1,11 +1,17 @@
+"use client";
 import GallerySlider from "@/components/GallerySlider";
 import { ProviderCard } from "@/components/ProviderCard";
 import ProviderReviewsSlider from "@/components/ProviderReviewsSlider";
 import { Button } from "@/components/ui/button";
-import { providers } from "@/constants/data";
+import { providers, services } from "@/constants/data";
 import { imgs } from "@/constants/images";
+import { useGetProvidersQuery } from "@/lib/redux/features/apis/providers_api";
+import { useGetServicesByProviderIdQuery } from "@/lib/redux/features/apis/services_api";
+import { useGetUserQuery } from "@/lib/redux/features/apis/user_api";
 import Image from "next/image";
-import { FC } from "react";
+import Link from "next/link";
+import { FC, useMemo, useState } from "react";
+import getSymbolFromCurrency from "currency-symbol-map";
 import {
   BsFillChatLeftTextFill,
   BsHeartFill,
@@ -15,6 +21,7 @@ import {
 import { HiLocationMarker } from "react-icons/hi";
 import { IoMdCheckmark } from "react-icons/io";
 import { MdArrowForwardIos } from "react-icons/md";
+import { useGetReviewsByServiceIdQuery } from "@/lib/redux/features/apis/reviews_api";
 
 interface pageProps {
   params: {
@@ -22,17 +29,38 @@ interface pageProps {
   };
 }
 
-const page: FC<pageProps> = ({ params: { providerId } }) => {
-  console.log(providerId);
+
+const Page: FC<pageProps>  = ({params:{providerId}}) => {
+
+  const providersData = useGetProvidersQuery();
+  const { data } = useGetServicesByProviderIdQuery(providerId);
+  const [serviceIndex, setServiceIndex] = useState(0);
+  const service = data?.data[serviceIndex];
+  const user = useGetUserQuery(providerId).data?.data;
+  const serviceReviews = useGetReviewsByServiceIdQuery(service?._id as string);
+
+  const otherServices = useMemo(() => {
+    return data?.data.filter((datum) => datum._id !== service?._id);
+  }, [data, service?._id]);
+
+  const providers = useMemo(() => {
+    if (providersData.isSuccess) {
+      return providersData.data.filter((providers) => providers._id !== providerId);
+    }
+  }, [providerId, providersData.data, providersData.isSuccess]);
+
+  const reviews = serviceReviews.data?.data;
 
   return (
     <main className="">
       <section className="flex px-4 py-4 gap-2 lg:px-32 justify-start items-center">
         <span className="text-lg font-semibold">Home</span>
         <MdArrowForwardIos className="text-[#999999] text-xs" />
-        <span className="text-xs md:text-sm">Home Service</span>
+        <span className="text-xs md:text-sm capitalize">
+          {service?.category.name} Service
+        </span>
         <MdArrowForwardIos className="text-[#999999] text-xs" />
-        <span className="text-xs md:text-sm">Plumbing service</span>
+        <span className="text-xs md:text-sm">{service?.name} service</span>
       </section>
 
       <div className="flex flex-col md:flex-row gap-6 px-6 md:px-8 lg:px-24 xl:px-32">
@@ -41,38 +69,51 @@ const page: FC<pageProps> = ({ params: { providerId } }) => {
             <div className="flex justify-start items-center gap-5">
               <div className="flex justify-center items-center">
                 <div className="w-[7.5rem] h-[7.5rem] overflow-hidden relative">
-                  <Image src={imgs.prodeatimg} alt="detail-img" priority fill />
+                  <Image
+                    src={user?.avatar ?? imgs.prodeatimg}
+                    alt="detail-img"
+                    priority
+                    fill
+                  />
                 </div>
               </div>
               <div className="flex flex-col gap-1 text-afruna-blue">
                 <div className="flex justify-start items-center gap-2">
-                  <span className="">Yamaha Jamal</span>
-                  <span className="rounded-full text-xs text-green-700 w-[1rem] h-[1rem] bg-green-300 flex justify-center items-center">
-                    <IoMdCheckmark size={11} />
+                  <span className="capitalize">
+                    {user?.firstName} {user?.lastName}
+                  </span>
+                  <span
+                    className={`${
+                      !service?.verified
+                        ? "text-orange-700 bg-orange-300"
+                        : "text-green-700 bg-green-300"
+                    }  rounded-full text-xs  w-[1rem] h-[1rem]  flex justify-center items-center
+                  `}
+                  >
+                    {service?.photos.length ? (
+                      <IoMdCheckmark size={11} />
+                    ) : null}
                   </span>
                 </div>
-                <h2 className=" font-semibold">Plumbing Service</h2>
+                <h2 className=" font-semibold">{service?.name} Service</h2>
                 <div className="flex flex-col sm:flex-row gap-1  text-xs text-afruna-gray font-semibold">
-                  <div className="flex justify-start text-start items-center text-sm gap-1 lg:gap-1">
+                  <div className="flex capitalize justify-start text-start items-center text-sm gap-1 lg:gap-1">
                     <HiLocationMarker className="text-[#0382BD] text-xl lg:text-lg" />
-                    {`Kaunda`}
+                    {service?.state}
                   </div>
                   <div className="flex items-center gap-2 md:ml-4 font-medium">
                     <span className="flex items-center gap-1 lg:gap-1  ">
-                      <BsStarFill className="text-afruna-gold" />
-                      (216)
+                      <BsStarFill className="text-afruna-gold" />(
+                      {service?.ratedBy})
                     </span>
-                    <span className="">(123 Reviews)</span>
+                    <span className="">({service?.ratings}) Reviews</span>
                   </div>
                 </div>
-                <span className="text-xs ">Deliverd (7)</span>
+                <span className="text-xs ">Deliverd (0)</span>
               </div>
             </div>
             <div className="flex flex-col gap-3 mt-2 justify-start items-start">
-              <p className="text-sm">
-                Hi! Welcome to my profile!. I like to make Anything plumbing.
-                Please leave me a message if you have any questions. Thank you!
-              </p>
+              <p className="text-sm">{service?.desc}</p>
               <Button variant={"afrunaOutline"} className="">
                 <BsFillChatLeftTextFill className="text-[1rem] mr-2 sm:text-[1.1rem]" />
                 Contact me
@@ -80,7 +121,7 @@ const page: FC<pageProps> = ({ params: { providerId } }) => {
             </div>
           </section>
 
-          <GallerySlider />
+          {service && service.photos.length > 0 ? <GallerySlider /> : null}
 
           <section className="flex mt-12 flex-col py-4 gap-4 justify-start">
             <h2 className="text-2xl font-semibold text-start flex justify-self-start">
@@ -128,8 +169,8 @@ const page: FC<pageProps> = ({ params: { providerId } }) => {
             <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 justify-start rounded-md bg-white px-4 py-6">
               <div className="flex flex-col gap-4 lg:w-full lg:max-w-[75%]">
                 <div className="flex justify-between max-w-[12rem] items-center">
-                  <h4 className="text-sm font-semibold">Evalution Free</h4>
-                  <span className="text-sm">$12</span>
+                  <h4 className="text-sm font-semibold">Evalution Fee</h4>
+                  <span className="text-sm">{getSymbolFromCurrency("NGN")}1000</span>
                 </div>
                 <p className="text-xs">
                   This is a money paid for service provider to come over to an
@@ -141,74 +182,49 @@ const page: FC<pageProps> = ({ params: { providerId } }) => {
                   variant={"primary"}
                   className="max-w-[10rem] w-full lg:text-sm"
                 >
-                  Pay Free
+                  Pay Fee
                 </Button>
               </div>
             </div>
           </section>
 
-          <section className="flex flex-col py-4 gap-4 justify-start">
-            <div className="text-2xl font-semibold">
-              Service Listing & Pricing
-            </div>
+          {otherServices && otherServices.length > 0 ? (
+            <section className="flex flex-col py-4 gap-4  justify-start">
+              <div className="text-2xl font-semibold">
+                Service Listing & Pricing
+              </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-start sm:justify-between rounded-md bg-white px-4 py-6">
-              <div className="flex flex-col gap-3">
-                <div className="flex justify-between items-center">
-                  <h4 className="text-sm font-semibold">
-                    Full plumbing service for new building
-                  </h4>
-                </div>
-                <p className="text-sm">#2300</p>
+              <div className="flex flex-col my-3 gap-4 justify-start sm:justify-between rounded-md bg-white px-4 py-6">
+                {otherServices.map((otherService, idx) => {
+                  return (
+                    <div
+                      key={otherService._id}
+                      className="flex flex-col sm:flex-row gap-4 justify-start sm:justify-between rounded-md px-4 py-6"
+                    >
+                      <div className="flex flex-col gap-3">
+                        <div className="flex justify-between items-center">
+                          <h4 className="text-sm font-semibold">
+                            {otherService.desc}
+                          </h4>
+                        </div>
+                        <p className="text-sm">{getSymbolFromCurrency("NGN")?.concat(otherService.price.toLocaleString())}</p>
+                      </div>
+                      <div className="flex justify-start">
+                        <Button
+                          onClick={() => setServiceIndex(idx)}
+                          variant={"primary"}
+                          className="max-w-[90%] lg:max-w-[95%] mx-auto w-full lg:text-xs"
+                        >
+                          Select Service
+                        </Button>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-              <div className="flex justify-start">
-                <Button
-                  variant={"primary"}
-                  className="max-w-[90%] lg:max-w-[95%] mx-auto w-full lg:text-xs"
-                >
-                  Select Service
-                </Button>
-              </div>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-start sm:justify-between rounded-md bg-white px-4 py-6">
-              <div className="flex flex-col gap-3">
-                <div className="flex justify-between items-center">
-                  <h4 className="text-sm font-semibold">
-                    Full plumbing service for new building
-                  </h4>
-                </div>
-                <p className="text-sm">#2300</p>
-              </div>
-              <div className="flex justify-start">
-                <Button
-                  variant={"primary"}
-                  className="max-w-[90%] lg:max-w-[95%] mx-auto w-full lg:text-xs"
-                >
-                  Select Service
-                </Button>
-              </div>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-start sm:justify-between rounded-md bg-white px-4 py-6">
-              <div className="flex flex-col gap-3">
-                <div className="flex justify-between items-center">
-                  <h4 className="text-sm font-semibold">
-                    Full plumbing service for new building
-                  </h4>
-                </div>
-                <p className="text-sm">#2300</p>
-              </div>
-              <div className="flex justify-start">
-                <Button
-                  variant={"primary"}
-                  className="max-w-[90%] lg:max-w-[95%] mx-auto w-full lg:text-xs"
-                >
-                  Select Service
-                </Button>
-              </div>
-            </div>
-          </section>
-
-          <ProviderReviewsSlider />
+            </section>
+          ) : null}
+          <ProviderReviewsSlider reviews={reviews} />
         </div>
         <div className="flex w-full flex-col gap-6 md:max-w-[50%] xl:max-w-[40%]">
           <div className="flex gap-3 justify-start items-center">
@@ -228,50 +244,28 @@ const page: FC<pageProps> = ({ params: { providerId } }) => {
           </div>
           <div className="flex py-10 px-8 bg-white xl:max-w-[90%] w-full flex-col gap-1 rounded-lg">
             <h3 className="text-2xl font-semibold">Service Availability</h3>{" "}
-            <div className="flex justify-between mt-6 font-semibold">
-              <span className="text-xs">Monday</span>
-              <p className="flex text-afruna-gray text-xs">
-                09 : 30 AM to 07 : 30 PM
-              </p>
-            </div>
-            <div className="flex justify-between mt-4 font-semibold">
-              <span className="text-xs">Tuesday</span>
-              <p className="flex text-afruna-gray text-xs">
-                09 : 30 AM to 07 : 30 PM
-              </p>
-            </div>
-            <div className="flex justify-between mt-4 font-semibold">
-              <span className="text-xs">Wednesday</span>
-              <p className="flex text-afruna-gray text-xs">
-                09 : 30 AM to 07 : 30 PM
-              </p>
-            </div>
-            <div className="flex justify-between mt-4 font-semibold">
-              <span className="text-xs">Thursday</span>
-              <p className="flex text-afruna-gray text-xs">
-                09 : 30 AM to 07 : 30 PM
-              </p>
-            </div>
-            <div className="flex justify-between mt-4 font-semibold">
-              <span className="text-xs">Friday</span>
-              <p className="flex text-afruna-gray text-xs">
-                09 : 30 AM to 07 : 30 PM
-              </p>
-            </div>
-            <div className="flex justify-between mt-4 font-semibold">
-              <span className="text-xs">Saturday</span>
-              <p className="flex text-afruna-gray text-xs">
-                09 : 30 AM to 07 : 30 PM
-              </p>
-            </div>
-            <div className="flex justify-between mt-4 font-semibold">
-              <span className="text-xs">Sunday</span>
-              <p className="flex text-red-600 text-xs">Closed</p>
-            </div>
+            {service &&
+              service.availability.days.map((avail, idx) => {
+                return (
+                  <div
+                    key={idx}
+                    className="flex justify-between mt-6 font-semibold"
+                  >
+                    <span className="text-xs">{avail}</span>
+                    <p className="flex text-afruna-gray text-xs">
+                      {service?.availability.hours.from ?? "8:00 AM"}{" "}
+                      {service?.availability.hours.to ?? " to 5:00 PM"}
+                    </p>
+                  </div>
+                );
+              })}
             <div className="flex justify-center mt-10 ">
-              <Button variant={"primary"} className="max-w-[15rem]  w-full">
+              <Link
+                href={`/booking/${service?._id}`}
+                className="max-w-[15rem] text-center p-2 bg-gradient-action-provider hover:bg-gradient-action-btn text-xs md:text-sm text-white rounded-md w-full"
+              >
                 Book Service
-              </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -285,8 +279,8 @@ const page: FC<pageProps> = ({ params: { providerId } }) => {
           </h1>
         </div>
         <div className="flex flex-wrap justify-start gap-6 mt-8 lg:mt-10">
-          {providers.slice(0, 3).map((item) => {
-            return <ProviderCard key={item.rating} item={item} />;
+          {providers?.slice(0, 7).map((item) => {
+            return <ProviderCard key={item._id} item={item} />;
           })}
         </div>
       </section>
@@ -294,4 +288,4 @@ const page: FC<pageProps> = ({ params: { providerId } }) => {
   );
 };
 
-export default page;
+export default Page;

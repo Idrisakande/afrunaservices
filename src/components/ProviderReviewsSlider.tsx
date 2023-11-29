@@ -1,18 +1,22 @@
 "use client";
 
 import { providerReviews } from "@/constants/data";
+import { imgs } from "@/constants/images";
+import { IReview } from "@/interfaces";
 import Image, { StaticImageData } from "next/image";
 import { FC, useEffect, useState } from "react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
-interface ProviderReviewsSliderProps {}
+interface ProviderReviewsSliderProps {
+  reviews?: IReview[]
+}
 
-const ProviderReviewsSlider: FC<ProviderReviewsSliderProps> = ({}) => {
+const ProviderReviewsSlider: FC<ProviderReviewsSliderProps> = ({reviews}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slideImgLength = providerReviews.length;
+  const slideImgLength =  reviews?.length??0;
 
-  const autoShow = true;
+  const autoShow = slideImgLength >1?true:false;
   let showInterval: string | number | NodeJS.Timeout | undefined;
   let intervalTime = 7000;
 
@@ -44,7 +48,7 @@ const ProviderReviewsSlider: FC<ProviderReviewsSliderProps> = ({}) => {
     return () => clearInterval(showInterval);
   }, [currentSlide, showInterval, autoshow]);
 
-  return (
+  return reviews && reviews.length? (
     <div className="flex flex-col mt-6 gap-4 justify-start w-full">
       <h2 className="text-2xl font-semibold ">What people are saying</h2>
       {/* <div className="flex flex-col gap-4 xl:mt-4"> */}
@@ -72,9 +76,9 @@ const ProviderReviewsSlider: FC<ProviderReviewsSliderProps> = ({}) => {
           <MdKeyboardArrowRight size={18} onClick={nextSlide} />
         </button>
 
-        {providerReviews.map(({ img, name, rating, review }, index) => (
+        { reviews.map(({ _id,comment,createdAt,rating,serviceId,updatedAt,userId }, index) => (
           <div
-            key={index}
+            key={index+_id}
             className={`duration-700 transition-all  ${
               index === currentSlide
                 ? " flex justify-center gap-2 items-start opacity-100"
@@ -86,7 +90,7 @@ const ProviderReviewsSlider: FC<ProviderReviewsSliderProps> = ({}) => {
                 <div className="flex">
                   <div className="w-[2rem] h-[2rem] relative overflow-hidden flex justify-center items-center">
                     <Image
-                      src={img as unknown as StaticImageData}
+                      src={userId.avatar??imgs.anonyUser}
                       alt={`details-img-${index}`}
                       key={index}
                       fill
@@ -95,7 +99,7 @@ const ProviderReviewsSlider: FC<ProviderReviewsSliderProps> = ({}) => {
                 </div>
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between items-center w-full">
-                    <h4 className="text-sm font-semibold">{name}</h4>
+                    <h4 className="text-sm font-semibold">{userId.firstName??"Anonymous"} {userId.lastName??"User"}</h4>
                     <div className="flex justify-center items-center gap-2 ">
                       {Array(5)
                         .fill("_")
@@ -122,7 +126,7 @@ const ProviderReviewsSlider: FC<ProviderReviewsSliderProps> = ({}) => {
                         ))}
                     </div>
                   </div>
-                  <p className="text-xs">{review}</p>
+                  <p className="text-xs">{comment}</p>
                 </div>
               </>
             )}
@@ -131,7 +135,7 @@ const ProviderReviewsSlider: FC<ProviderReviewsSliderProps> = ({}) => {
       </div>
       {/* </div> */}
     </div>
-  );
+  ):null;
 
   //   return (
   //     <div className="flex flex-col gap-4 max-w-[22rem] w-full md:max-w-full ">

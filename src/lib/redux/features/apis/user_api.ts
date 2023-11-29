@@ -1,21 +1,18 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { REHYDRATE } from "redux-persist";
-import { prepareHeaders } from "@/utils/prepare_header";
+import Cookies from "js-cookie";
 import { IUser } from "@/interfaces";
-export const providersApi = createApi({
-  reducerPath: "providersApi",
+import { prepareHeaders } from "@/utils/prepare_header";
+import { IUserResponse } from "@/interfaces/user.interface";
+export const userApi = createApi({
+  reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
-  prepareHeaders,
+    prepareHeaders
   }),
   endpoints: (build) => ({
-    getProviders: build.query<IUser[], void>({
-      query: () => "/users?limit=100",
-      transformResponse(response: {data: IUser[]}) {
-          const provider =  response.data.filter(user => user.role === "provider");
-          //get the services offered by the provider.
-          return provider;
-      },
+    getUser: build.query<IUserResponse, string>({
+      query: (id:string) => `/users/${id}`,
     }),
   }),
   extractRehydrationInfo(action, { reducerPath }) {
@@ -32,4 +29,4 @@ export const providersApi = createApi({
   },
 });
 
-export const { useGetProvidersQuery } = providersApi;
+export const { useGetUserQuery } = userApi;

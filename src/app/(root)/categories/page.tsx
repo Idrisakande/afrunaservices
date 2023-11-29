@@ -1,11 +1,13 @@
+"use client";
 import CategoryCard from "@/components/CategoryCard";
-import { NewsLetter } from "@/components/NewsLetter";
-import { feautureCategories } from "@/constants/data";
-import { FC } from "react";
+import { useGetCategoriesByPaginationQuery} from "@/lib/redux/features/apis/categories_api";
+import { FC, useState } from "react";
 
 interface pageProps {}
 
-const page: FC<pageProps> = ({}) => {
+const Page: FC<pageProps> = ({}) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const {data} = useGetCategoriesByPaginationQuery(currentPage);
   return (
     <>
       <section className="bg-white flex justify-center flex-col font-bold items-center gap-4 h-[11rem]">
@@ -17,13 +19,13 @@ const page: FC<pageProps> = ({}) => {
         </div>
       </section>
       <section className="px-8 lg:px-20 pb-10 md:pb-16 flex flex-wrap sm:justify-center mt-12 gap-6 md:gap-8 lg:mt-10 ">
-        {feautureCategories.slice(0, 20).map((item) => {
-          return <CategoryCard key={item.text} item={item} />
+        {data?.data.map((item) => {
+          return <CategoryCard key={item._id} item={item} />
         })}
       </section>
-      <NewsLetter/>
+      {/* <NewsLetter/> */}
     </>
   );
 };
 
-export default page;
+export default Page;
