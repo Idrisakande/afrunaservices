@@ -1,20 +1,30 @@
+"use client"
+import NoServicesFound from "@/components/ui/NoServicesFound";
+import NoThingFound from "@/components/ui/NothingFound";
 import { Button } from "@/components/ui/button";
 import { imgs } from "@/constants/images";
+import { useGetMyReviewsQuery, useGetReviewsQuery } from "@/lib/redux/features/apis/reviews_api";
+import { verifyImageUrl } from "@/utils/verify_image_url";
 import Image from "next/image";
+import Link from "next/link";
 import { FC } from "react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 
 interface pageProps {}
 
-const page: FC<pageProps> = ({}) => {
+const Page: FC<pageProps> = ({}) => {
+
+  const {isSuccess, data} = useGetReviewsQuery();
+
   return (
     <section className="flex flex-col gap-6 max-w-[94%] md:max-w-[100%] mx-auto">
       <h1 className="text-xl pl-2 lg:pl-0 lg:text-2xl leading-3 text-afruna-blue font-bold">
         Service Review
       </h1>
       <div className="flex flex-col gap-4 max-w-[95%] lg:max-w-[90%] mx-auto lg:mx-0  w-full">
-        {/* 1sreview */}
-        <div className="py-6 px-4 flex flex-col lg:flex-row justify-between w-full bg-white drop-shadow rounded-lg">
+      {isSuccess? data.data.map((review)=> {
+        return (
+          <div key={review._id} className="py-6 px-4 flex flex-col lg:flex-row justify-between w-full bg-white drop-shadow rounded-lg">
           <div className="flex flex-col gap-4 lg:max-w-[75%] w-full">
             <div className="flex flex-col gap-2">
               <div className="flex flex-col sm:flex-row gap-6">
@@ -25,50 +35,56 @@ const page: FC<pageProps> = ({}) => {
                 </div>
                 <div className="flex flex-col gap-6">
                   <h2 className="text-lg sm:text-2xl font-semibold leading-6 order-1 sm:-order-1">
-                    Architectural Drawing Service
+                    {review?.serviceId?.name??"Service"}
                   </h2>
                   <div className="flex justify-start items-center gap-2">
                     <div className="w-[2.3rem] h-[2.3rem] overflow-hidden rounded-full relative flex justify-center items-center">
-                      <Image src={imgs.seller1} alt="review" priority fill />
+                      <Image src={verifyImageUrl(review?.userId.avatar)} alt="review" priority fill />
                     </div>
-                    <span className="sm:text-sm text-[0.65rem] text-afruna-blue font-semibold">
-                      Jahimani Masilala
+                    <span className="sm:text-sm text-[0.65rem] text-afruna-blue capitalize font-semibold">
+                      {review?.userId.firstName} {review.userId.lastName}
                     </span>
                     <span className="sm:text-sm text-[0.65rem] text-afruna-gray">
-                      jahimani@gmail.com
+
                     </span>
                   </div>
                 </div>
               </div>
               <p className="text-xs">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+              {review.comment}
               </p>
             </div>
           </div>
           <div className="flex flex-col gap-5 lg:gap-8 justify-center items-center lg:max-w-[25%] w-full mt-4 lg:mt-0">
             <div className="flex items-center gap-4 order-1 lg:-order-1">
-              <Button variant={"primary"} className="px-5 text-xs">
-                Re Book
-              </Button>
-              <Button variant={"skyButton"} className="text-xs">
+            {review?.serviceId?._id && (  <Link 
+                href={`/booking/${review?.serviceId?._id}`}
+                className="max-w-[15rem] text-center p-2 bg-gradient-action-provider hover:bg-gradient-action-btn text-xs md:text-sm text-white rounded-md w-full"
+              >
+                Re-Book
+              </Link>)}
+            {review?.serviceId === undefined && (  <button 
+                disabled
+                className="max-w-[15rem] cursor-not-allowed text-center p-2 bg-gradient-action-provider hover:bg-gradient-action-btn text-xs md:text-sm text-white rounded-md w-full"
+              >
+                Re-Book
+              </button>)}
+              {/* <Button variant={"skyButton"} className="text-xs">
                 Add review
-              </Button>
+              </Button> */}
             </div>
             <div className="flex items-center gap-2 ">
               {Array(5)
                 .fill("_")
-                .map((star, index) => (
+                .map((_, index) => (
                   <div
                     className={`${
-                      index < 4.5 ? "text-[#FF9E3A]" : "text-slate-400"
+                      index < review.rating ? "text-[#FF9E3A]" : "text-slate-400"
                     }  text-sm md:text-xs`}
                     key={index}
                   >
-                    {index < 4.5 ? (
-                      index === Math.floor(4.5) && 4.5 % 1 !== 0 ? (
+                    {index < review.rating ? (
+                      index === Math.floor(review.rating) && review.rating % 1 !== 0 ? (
                         <BsStarHalf />
                       ) : (
                         <BsStarFill />
@@ -81,145 +97,11 @@ const page: FC<pageProps> = ({}) => {
             </div>
           </div>
         </div>
-        {/* 1sreview */}
-        <div className="py-6 px-4 flex flex-col lg:flex-row justify-between w-full bg-white drop-shadow rounded-lg">
-          <div className="flex flex-col gap-4 lg:max-w-[75%] w-full">
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-col sm:flex-row gap-6">
-                <div className="flex justify-center items-center h-[12rem] sm:w-[8rem] sm:h-[6rem]">
-                  <div className="w-full h-full overflow-hidden relative rounded-md">
-                    <Image src={imgs.review1} alt="review" priority fill />
-                  </div>
-                </div>
-                <div className="flex flex-col gap-6">
-                  <h2 className="text-lg sm:text-2xl font-semibold leading-6 order-1 sm:-order-1">
-                    Architectural Drawing Service
-                  </h2>
-                  <div className="flex justify-start items-center gap-2">
-                    <div className="w-[2.3rem] h-[2.3rem] overflow-hidden rounded-full relative flex justify-center items-center">
-                      <Image src={imgs.seller1} alt="review" priority fill />
-                    </div>
-                    <span className="sm:text-sm text-[0.65rem] text-afruna-blue font-semibold">
-                      Jahimani Masilala
-                    </span>
-                    <span className="sm:text-sm text-[0.65rem] text-afruna-gray">
-                      jahimani@gmail.com
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <p className="text-xs">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-col gap-5 lg:gap-8 justify-center items-center lg:max-w-[25%] w-full mt-4 lg:mt-0">
-            <div className="flex items-center gap-4 order-1 lg:-order-1">
-              <Button variant={"primary"} className="px-5 text-xs">
-                Re Book
-              </Button>
-              <Button variant={"skyButton"} className="text-xs">
-                Add review
-              </Button>
-            </div>
-            <div className="flex items-center gap-2 ">
-              {Array(5)
-                .fill("_")
-                .map((star, index) => (
-                  <div
-                    className={`${
-                      index < 4.5 ? "text-[#FF9E3A]" : "text-slate-400"
-                    }  text-sm md:text-xs`}
-                    key={index}
-                  >
-                    {index < 4.5 ? (
-                      index === Math.floor(4.5) && 4.5 % 1 !== 0 ? (
-                        <BsStarHalf />
-                      ) : (
-                        <BsStarFill />
-                      )
-                    ) : (
-                      <BsStar />
-                    )}
-                  </div>
-                ))}
-            </div>
-          </div>
-        </div>
-        {/* 1sreview */}
-        <div className="py-6 px-4 flex flex-col lg:flex-row justify-between w-full bg-white drop-shadow rounded-lg">
-          <div className="flex flex-col gap-4 lg:max-w-[75%] w-full">
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-col sm:flex-row gap-6">
-                <div className="flex justify-center items-center w-full h-[12rem] sm:w-[8rem] sm:h-[6rem]">
-                  <div className="w-full h-full overflow-hidden relative rounded-md">
-                    <Image src={imgs.review1} alt="review" priority fill />
-                  </div>
-                </div>
-                <div className="flex flex-col gap-6">
-                  <h2 className="text-lg sm:text-2xl font-semibold leading-6 order-1 sm:-order-1">
-                    Architectural Drawing Service
-                  </h2>
-                  <div className="flex justify-start items-center gap-2">
-                    <div className="w-[2.3rem] h-[2.3rem] overflow-hidden rounded-full relative flex justify-center items-center">
-                      <Image src={imgs.seller1} alt="review" priority fill />
-                    </div>
-                    <span className="sm:text-sm text-[0.65rem] text-afruna-blue font-semibold">
-                      Jahimani Masilala
-                    </span>
-                    <span className="sm:text-sm text-[0.65rem] text-afruna-gray">
-                      jahimani@gmail.com
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <p className="text-xs">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-col gap-5 lg:gap-8 justify-center items-center lg:max-w-[25%] w-full mt-4 lg:mt-0">
-            <div className="flex items-center gap-4 order-1 lg:-order-1">
-              <Button variant={"primary"} className="px-5 text-xs">
-                Re Book
-              </Button>
-              <Button variant={"skyButton"} className="text-xs">
-                Add review
-              </Button>
-            </div>
-            <div className="flex items-center gap-2 ">
-              {Array(5)
-                .fill("_")
-                .map((star, index) => (
-                  <div
-                    className={`${
-                      index < 4.5 ? "text-[#FF9E3A]" : "text-slate-400"
-                    }  text-sm md:text-xs`}
-                    key={index}
-                  >
-                    {index < 4.5 ? (
-                      index === Math.floor(4.5) && 4.5 % 1 !== 0 ? (
-                        <BsStarHalf />
-                      ) : (
-                        <BsStarFill />
-                      )
-                    ) : (
-                      <BsStar />
-                    )}
-                  </div>
-                ))}
-            </div>
-          </div>
-        </div>
+        )
+      }):<NoThingFound message={"No Reviews yets!"} />}
       </div>
     </section>
   );
 };
 
-export default page;
+export default Page;

@@ -1,3 +1,5 @@
+import { IMsg } from "@/interfaces";
+import { IConvo } from "@/interfaces/data.interface";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 const chatPersistConfig = {
@@ -6,17 +8,23 @@ const chatPersistConfig = {
 };
 
 type TInitialChatState = {
- 
+  convo: IConvo[];
+  messages: IMsg[];
 };
 const chatSlice = createSlice({
-  initialState: {  } as TInitialChatState,
-  name: "chat",
-  reducers: {
-    
-  },
+	name: "Chat",
+	initialState: {convo:[],messages:[]} as TInitialChatState,
+	reducers: {
+		updateConvo(state, action: PayloadAction<IConvo[]>) {
+			state.convo = action.payload;
+		},
+		updateMessages(state, action: PayloadAction<IMsg[]>) {
+			state.messages = action.payload;
+		},
+	},
 });
 
 // Export your chatSlice and persist config
 export { chatPersistConfig };
-export const { } = chatSlice.actions;
+export const {updateConvo, updateMessages } = chatSlice.actions;
 export default chatSlice.reducer;

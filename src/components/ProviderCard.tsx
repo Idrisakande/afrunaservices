@@ -45,7 +45,7 @@ export const ProviderCard: FC<ProviderCardProps> = ({ item }) => {
   return (
     <div className="bg-white rounded-lg max-w-[20rem] sm:max-w-[18rem] lg:max-w-[16rem] mx-auto p-4 md:px-4 py-10 w-full shadow-md flex flex-col gap-4">
       <div className="mx-auto w-[6.5rem] h-[6.5rem] rounded-full overflow-hidden md:w-[6rem] md:h-[6rem] relative flex justify-center items-center">
-        <Image src={item.avatar??imgs.photo} alt={`seler image`} fill />
+        <Image src={item.avatar??imgs.anonyUser} alt={`seler image`} fill />
       </div>
       <div className="mt-1 flex justify-start flex-col px-4">
         <div className="flex items-center gap-2">

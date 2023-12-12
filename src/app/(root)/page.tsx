@@ -5,6 +5,7 @@ import { NewsLetter } from "@/components/NewsLetter";
 import { ProviderCard } from "@/components/ProviderCard";
 import ServicesCard from "@/components/ServicesCard";
 import TestimonialSlider from "@/components/TestimonialSlider";
+import NoThingFound from "@/components/ui/NothingFound";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   operationMethods,
@@ -159,7 +160,7 @@ export default function Home() {
         <div className="flex flex-wrap gap-4 mt-8 ">
           
            {
-          services.isSuccess && services.data.data.length > 0? services.data.data.map((item)=> <ServicesCard item={item} key={item._id} />): null
+          services.isSuccess && services.data.data.length > 0? services.data.data.map((item)=> <ServicesCard item={item} key={item._id} />): <NoThingFound />
            }
         </div>
       </section>
@@ -184,7 +185,7 @@ export default function Home() {
           </div>
         </div>
         <div className="flex flex-row flex-wrap sm:justify-center gap-6 mt-8 lg:mt-10">
-        {providers.isSuccess && providers.data.length > 0? providers.data.slice(0,10).map(provider => <ProviderCard key={provider._id} item={provider} />):null}
+        {providers.isSuccess && providers.data.length > 0? providers.data.slice(0,10).map(provider => <ProviderCard key={provider._id} item={provider} />):<NoThingFound />}
         </div>
       </section>
       {/* testimonial section */}

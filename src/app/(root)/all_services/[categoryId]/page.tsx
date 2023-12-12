@@ -76,7 +76,7 @@ const Page: FC<pageProps> = ({params: {categoryId}}) => {
             <ItemPicker
               items={["All location"]}
               placeholder={"All Location"}
-              getSelected={(val) => console.log(val as string)}
+              getSelected={(val) =>{}}
               // contentClassName={"p-2 bg-white text-xs"}
               triggerClassName="px-3 py-[0.3rem] rounded w-[10rem]"
             />
@@ -85,7 +85,7 @@ const Page: FC<pageProps> = ({params: {categoryId}}) => {
             <ItemPicker
               items={["all"]}
               placeholder={"All"}
-              getSelected={(val) => console.log(val as string)}
+              getSelected={(val) =>{}}
               // contentClassName={"p-2 bg-white text-xs"}
               triggerClassName="px-3 py-[0.3rem] rounded w-[8rem] sm:w-[6rem]"
             />
@@ -94,7 +94,7 @@ const Page: FC<pageProps> = ({params: {categoryId}}) => {
             <ItemPicker
               items={["Sort by"]}
               placeholder={"Sort by"}
-              getSelected={(val) => console.log(val as string)}
+              getSelected={(val) =>{}}
               // contentClassName={"p-2 bg-white text-xs"}
               triggerClassName="px-3 py-[0.3rem] rounded w-[10rem] sm:w-[7rem]"
             />

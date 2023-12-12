@@ -14,10 +14,11 @@ export const CurrentUsersConversations: FC<CurrentUsersConversationsProps> = ({
   time,
   isOwn,
 }) => {
-  const convo = true;
   return (
     <div className={`flex gap-3 w-full p-2 ${isOwn && "justify-end"}`}>
       <Image
+      height={20}
+      width={20}
         src={img}
         alt="img"
         priority

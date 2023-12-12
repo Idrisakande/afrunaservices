@@ -14,6 +14,8 @@ export const Avatar: FC<AvatarProps> = ({ img, active, isOwn, convo }) => {
   return (
     <div className="flex relative ">
       <Image
+      height={40}
+      width={40}
         src={img}
         alt="image"
         priority

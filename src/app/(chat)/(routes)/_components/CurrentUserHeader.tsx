@@ -5,6 +5,7 @@ import { IoAlertCircle } from "react-icons/io5";
 import { Avatar } from "./Avatar";
 import { MdArrowBackIosNew } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { verifyImageUrl } from "@/utils/verify_image_url";
 
 interface CurrentUserHeaderProps {
   active: boolean;
@@ -26,7 +27,7 @@ export const CurrentUserHeader: FC<CurrentUserHeaderProps> = ({
         <button onClick={()=> push('/chat')}>
           <MdArrowBackIosNew className="text-lg text-sky-400 sm:hidden" />
         </button>
-        <Avatar img={img} active={active} />
+        <Avatar img={verifyImageUrl(img)} active={active} />
         <div className="flex flex-1 flex-col gap-1">
           <h2 className="text-sm font-semibold tracking-tight text-[#0C0E3B]">
             {name}

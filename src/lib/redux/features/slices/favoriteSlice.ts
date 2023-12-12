@@ -7,11 +7,11 @@ const favoritesConfig = {
   storage,
 };
 
-type TInitialFavoriteState = IService[];
-type TInitialFavoritesState = IServices[];
+type TInitialFavoriteState = { favs: IService[] };
+type TInitialFavoritesState = { favs: IServices[] };
 const favoritesSlice = createSlice({
   //   initialState: [] as TInitialFavoriteState,
-  initialState: [] as TInitialFavoritesState,
+  initialState: { favs: [] } as TInitialFavoritesState,
   name: "favorites",
   reducers: {
     // toggleFavoriteService(state, action: PayloadAction<IService>) {
@@ -26,22 +26,18 @@ const favoritesSlice = createSlice({
     //   }
     // },
     toggleFavoriteServices(state, action: PayloadAction<IServices>) {
-      if (state.length === 0) {
-        state.push(action.payload);
-      } else {
-        const container = new Set(state);
-        const payload = action.payload;
-        if (container.has(payload)) {
-          container.delete(payload);
-          state = Array.from(container);
-          toast.info("removed!");
-          console.log(state);
+      const {payload} =action;
+      const existingIndex = state.favs.findIndex(item => item._id === payload._id);
+
+      if (existingIndex >= 0) {
+         // Update the existing data object in the array
+         const filtered = state.favs.filter(item => item._id !== payload._id);
+         state.favs = filtered;
+         toast.info("Removed from favorite");
         } else {
-          container.add(payload);
-          state = Array.from(container);
-          toast.info("favorited!");
-          console.log(state);
-        }
+          // Add the new data object to the array
+          toast.info("Added to favorite");
+         state.favs.push(payload);
       }
     },
   },

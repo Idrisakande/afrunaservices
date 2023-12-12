@@ -215,7 +215,7 @@ const AuthForm: FC<AuthFormProps> = ({}) => {
     if (registerResult.isSuccess) {
       const data = registerResult.data;
       const user: IUser = data.data.user;
-      if (user.role === "user") {
+      if (user?.role === "user") {
         Cookies.set("token", data.data.token);
         dispatch(login());
         dispatch(setProfile(user));

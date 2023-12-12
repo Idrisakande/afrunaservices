@@ -12,7 +12,7 @@ import axios from "axios";
 import getSymbolFromCurrency from "currency-symbol-map";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { FC, useCallback } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { BsStarFill } from "react-icons/bs";
 import { HiLocationMarker, HiMail } from "react-icons/hi";
@@ -20,6 +20,7 @@ import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { Loader } from "lucide-react";
 import { useAppSelector } from "@/hooks";
+import { verifyImageUrl } from "@/utils/verify_image_url";
 
 interface pageProps {
   params: {
@@ -36,6 +37,7 @@ const BookingsPage: FC<pageProps> = ({ params: { bookingId } }) => {
   } = useForm();
 
   const { data } = useGetServiceByIdQuery(bookingId);
+
   const [makeBooking, bookingResponse] = useBookServiceMutation();
   const service = data?.data;
   const userRequest = useGetUserQuery(service?.providerId as string);
@@ -112,7 +114,7 @@ const BookingsPage: FC<pageProps> = ({ params: { bookingId } }) => {
             <div className="flex justify-start w-fit gap-2 items-center">
               <div className=" w-[3rem] h-[3rem] rounded-full overflow-hidden relative flex justify-center items-center">
                 <Image
-                  src={provider?.avatar ?? imgs.anonyUser}
+                  src={verifyImageUrl(provider?.avatar)}
                   alt={`vendor image`}
                   fill
                 />
@@ -141,7 +143,7 @@ const BookingsPage: FC<pageProps> = ({ params: { bookingId } }) => {
                 </div>
                 <span className="text-sm text-afruna-blue font-extrabold">
                   {getSymbolFromCurrency("NGN")}
-                  {service?.price.toLocaleString()}
+                  {(1000 + service?.price as number).toLocaleString()}
                 </span>
               </div>
               <div className="flex gap-2 flex-col justify-start ">

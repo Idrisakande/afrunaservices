@@ -14,14 +14,14 @@ export const reviewsApi = createApi({
       query: () => "/reviews/all",
     }),
     getMyReviews: build.query<IReviewsResponse, void>({
-      query: () => "/reviews/all",
+      query: () => "/reviews",
     }),
     getReviewsByServiceId: build.query<IReviewsResponse, string>({
       query: (id: string) => `/reviews/${id}/service`,
     }),
     sendReview: build.mutation<
       IReviewResponse,
-      { rating: number; comment: string }
+      { rating: number; comment: string;serviceId:string }
     >({
       query: (body) => ({
         url: "/reviews",

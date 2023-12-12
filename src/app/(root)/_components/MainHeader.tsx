@@ -26,6 +26,7 @@ import { FiChevronDown } from "react-icons/fi";
 import AllServicesModel from "@/components/AllServicesModel";
 import { useAppSelector } from "@/hooks";
 import { profile } from "console";
+import { verifyImageUrl } from "@/utils/verify_image_url";
 
 interface MainHeaderProps {}
 
@@ -145,7 +146,7 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
                   getSelected={(val) => console.log(val)}
                   leftTriggerIcon={
                     <div className="w-[1.6rem] h-[1.6rem] md:w-8 md:h-8 lg:w-10 lg:h-10  rounded-full transition-all hover:scale-90 ease-in-out duration-300 overflow-hidden relative flex justify-center items-center">
-                      <Image src={profile_data?.avatar??imgs.seller1} alt="Your image" fill />
+                      <Image src={verifyImageUrl(profile_data?.avatar)} alt="Your image" fill />
                     </div>
                   }
                   placeholder={`${profile_data?.firstName} ${profile_data?.lastName}`}

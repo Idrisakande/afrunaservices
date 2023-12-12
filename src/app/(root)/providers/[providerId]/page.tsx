@@ -22,6 +22,8 @@ import { HiLocationMarker } from "react-icons/hi";
 import { IoMdCheckmark } from "react-icons/io";
 import { MdArrowForwardIos } from "react-icons/md";
 import { useGetReviewsByServiceIdQuery } from "@/lib/redux/features/apis/reviews_api";
+import NoServicesFound from "@/components/ui/NoServicesFound";
+import NoThingFound from "@/components/ui/NothingFound";
 
 interface pageProps {
   params: {
@@ -42,6 +44,9 @@ const Page: FC<pageProps>  = ({params:{providerId}}) => {
   const otherServices = useMemo(() => {
     return data?.data.filter((datum) => datum._id !== service?._id);
   }, [data, service?._id]);
+  console.log("service");
+  console.log(service);
+  
 
   const providers = useMemo(() => {
     if (providersData.isSuccess) {
@@ -121,8 +126,10 @@ const Page: FC<pageProps>  = ({params:{providerId}}) => {
             </div>
           </section>
 
+        {/* === services section */}
+        {/* if there is a services display it relation */}
+        {service !== undefined? (<>
           {service && service.photos.length > 0 ? <GallerySlider /> : null}
-
           <section className="flex mt-12 flex-col py-4 gap-4 justify-start">
             <h2 className="text-2xl font-semibold text-start flex justify-self-start">
               Service Details
@@ -131,10 +138,7 @@ const Page: FC<pageProps>  = ({params:{providerId}}) => {
               PLEASE MESSAGE ME FIRST BEFORE PLACING AN ORDER
             </span>
             <p className="text-sm">
-              Car wash is a facility used to clean the exterior and, in some
-              cases, the interior of motor vehicles. Car washes can be
-              self-serve, fully automated, or full-service with attendants who
-              wash the vehicle.
+            {}
             </p>
             <div className="flex flex-col gap-1">
               <h3 className="text-sm font-semibold">How does it work?</h3>
@@ -146,7 +150,7 @@ const Page: FC<pageProps>  = ({params:{providerId}}) => {
               </ul>
               <ul className="pl-5">
                 <li className="text-[0.77rem] list-disc">
-                  Evaluation fee of #1000
+                  Evaluation fee of {getSymbolFromCurrency("NGN")}1000
                 </li>
               </ul>
               <ul className="pl-5">
@@ -178,12 +182,12 @@ const Page: FC<pageProps>  = ({params:{providerId}}) => {
                 </p>
               </div>
               <div className="flex justify-start lg:w-full lg:max-w-[25%]">
-                <Button
+                {/* <Button
                   variant={"primary"}
                   className="max-w-[10rem] w-full lg:text-sm"
                 >
                   Pay Fee
-                </Button>
+                </Button> */}
               </div>
             </div>
           </section>
@@ -223,8 +227,9 @@ const Page: FC<pageProps>  = ({params:{providerId}}) => {
                 })}
               </div>
             </section>
-          ) : null}
+          ) : <NoThingFound message="There are no other services from this provider yet." />}
           <ProviderReviewsSlider reviews={reviews} />
+        </>):<NoThingFound message="No published services" />}
         </div>
         <div className="flex w-full flex-col gap-6 md:max-w-[50%] xl:max-w-[40%]">
           <div className="flex gap-3 justify-start items-center">
@@ -245,7 +250,7 @@ const Page: FC<pageProps>  = ({params:{providerId}}) => {
           <div className="flex py-10 px-8 bg-white xl:max-w-[90%] w-full flex-col gap-1 rounded-lg">
             <h3 className="text-2xl font-semibold">Service Availability</h3>{" "}
             {service &&
-              service.availability.days.map((avail, idx) => {
+              service?.availability?.days.map((avail, idx) => {
                 return (
                   <div
                     key={idx}
@@ -260,18 +265,25 @@ const Page: FC<pageProps>  = ({params:{providerId}}) => {
                 );
               })}
             <div className="flex justify-center mt-10 ">
-              <Link
+            {service?._id && (  <Link 
                 href={`/booking/${service?._id}`}
                 className="max-w-[15rem] text-center p-2 bg-gradient-action-provider hover:bg-gradient-action-btn text-xs md:text-sm text-white rounded-md w-full"
               >
                 Book Service
-              </Link>
+              </Link>)}
+            {service === undefined && (  <button 
+                disabled
+                className="max-w-[15rem] cursor-not-allowed text-center p-2 bg-gradient-action-provider hover:bg-gradient-action-btn text-xs md:text-sm text-white rounded-md w-full"
+              >
+                Book Service
+              </button>)}
             </div>
           </div>
         </div>
       </div>
 
-      <section className="flex flex-col gap-2 px-4 lg:px-32 pt-12 w-full pb-16">
+    {/* list other providers */}
+    {providers !== undefined?(  <section className="flex flex-col gap-2 px-4 lg:px-32 pt-12 w-full pb-16">
         <div className="flex flex-col gap-2">
           <h3 className=" text-orange-400 text">SERVICES</h3>
           <h1 className="flex text-3xl font-extrabold text-afruna-blue">
@@ -283,7 +295,7 @@ const Page: FC<pageProps>  = ({params:{providerId}}) => {
             return <ProviderCard key={item._id} item={item} />;
           })}
         </div>
-      </section>
+      </section>):null}
     </main>
   );
 };

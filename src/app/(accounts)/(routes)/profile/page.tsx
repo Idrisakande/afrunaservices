@@ -21,6 +21,7 @@ import { toast } from "react-toastify";
 import { setProfile } from "@/lib/redux/features/slices/profileSlice";
 import { IUser } from "@/interfaces";
 import * as Select from "@radix-ui/react-select";
+import { verifyImageUrl } from "@/utils/verify_image_url";
 
 interface pageProps {}
 const ENDPOINT = "/api/users/me";
@@ -28,7 +29,7 @@ const ProfilePage: FC<pageProps> = ({}) => {
   const { profile_data } = useAppSelector((state) => state.profile);
   const dispatch = useAppDispatch();
   const dialerCode = useMemo(() => {
-    const code = profile_data?.phoneNumber.split("-")[0];
+    const code = profile_data?.phoneNumber?.split("-")[0];
     var iso = "ng";
     defaultCountries.filter((c) => {
       const { dialCode, iso2 } = parseCountry(c);
@@ -107,7 +108,6 @@ const ProfilePage: FC<pageProps> = ({}) => {
       toast.warn("Something went wrong");
     }
   }, [_country.Name, dispatch, phone]);
-
   return (
     <section className="flex flex-col gap-6 max-w-[94%] md:max-w-[100%] mx-auto">
       <h1 className="text-xl lg:text-2xl leading-3 text-afruna-blue font-bold">
@@ -118,11 +118,7 @@ const ProfilePage: FC<pageProps> = ({}) => {
           <div className="flex lg:pl-6 lg:pt-4 gap-2 sm:gap-3 justify-start items-end">
             <div className="w-[4.5rem] h-[4.5rem] sm:w-[5rem] sm:h-[5rem] lg:w-[7.5rem] lg:h-[7.5rem] shadow rounded-full overflow-hidden relative flex justify-center items-center">
               <Image
-                src={
-                  profile_data !== undefined
-                    ? profile_data?.avatar ?? imgs.seller1
-                    : imgs.seller1
-                }
+                 src={verifyImageUrl(profile_data?.avatar)}
                 alt="Your image"
                 fill
               />
@@ -320,7 +316,7 @@ const ProfilePage: FC<pageProps> = ({}) => {
               </fieldset>
             </div>
 
-            {profile_data && profile_data.addresses.length > 0 ? (
+            {profile_data && profile_data.addresses?.length ? (
               <fieldset className="w-full lg:max-w-[48%]">
                 <label
                   htmlFor={"address1"}

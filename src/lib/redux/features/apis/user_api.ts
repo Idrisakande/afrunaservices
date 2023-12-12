@@ -3,7 +3,7 @@ import { REHYDRATE } from "redux-persist";
 import Cookies from "js-cookie";
 import { IUser } from "@/interfaces";
 import { prepareHeaders } from "@/utils/prepare_header";
-import { IUserResponse } from "@/interfaces/user.interface";
+import { IUserResponse, IUsersResponse } from "@/interfaces/user.interface";
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
@@ -13,6 +13,9 @@ export const userApi = createApi({
   endpoints: (build) => ({
     getUser: build.query<IUserResponse, string>({
       query: (id:string) => `/users/${id}`,
+    }),
+    getUsers: build.query<IUsersResponse, void>({
+      query: () => `/users`,
     }),
   }),
   extractRehydrationInfo(action, { reducerPath }) {
@@ -29,4 +32,4 @@ export const userApi = createApi({
   },
 });
 
-export const { useGetUserQuery } = userApi;
+export const { useGetUserQuery,useGetUsersQuery } = userApi;

@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { REHYDRATE } from "redux-persist";
-import Cookies from "js-cookie";
 import { IServiceResponse, IServicesResponse } from "@/interfaces";
 import { prepareHeaders } from "@/utils/prepare_header";
 

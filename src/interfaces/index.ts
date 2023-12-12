@@ -1,10 +1,15 @@
-import { IUser } from "./user.interface";
-import { ICategory, ICategoriesResponse,ICategoryResponse } from "./category.interface";
+import { IUser,IUserResponse,IUsersResponse } from "./user.interface";
+import {
+  ICategory,
+  ICategoriesResponse,
+  ICategoryResponse,
+} from "./category.interface";
 import {
   IBooking,
   IBookingResponse,
   IBookingsResponse,
 } from "./bookings.interface";
+import { IConvo, IMsg, IMsgAlias } from "./chat.interface";
 import {
   IReview,
   IReviewResponse,
@@ -23,6 +28,9 @@ export type {
   ICategory,
   ICategoryResponse,
   ICategoriesResponse,
+  IConvo,
+  IMsg,
+  IMsgAlias,
   IReview,
   IReviewResponse,
   IReviewsResponse,
@@ -30,5 +38,6 @@ export type {
   IServices,
   IServiceResponse,
   IServicesResponse,
-  IUser,
+  IUser
+  ,IUserResponse,IUsersResponse 
 };
