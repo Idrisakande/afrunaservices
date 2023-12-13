@@ -17,7 +17,19 @@ const CategoryCard: FC<CategoryCardProps> = ({ item }) => {
       <div className="flex justify-center items-center h-20 w-20 rounded-full bg-[#FEE4CA]">
         <div className="flex justify-center items-center h-[2.5rem] w-[2.5rem]">
           <div className="w-full h-full overflow-hidden relative">
-            <Image src={imgs.constCategory} alt="category" priority fill />
+            {item?.icon ? (
+              <Image
+                src={
+                  item.icon.includes("https://")
+                    ? item.icon
+                    : `https://${item.icon}`
+                }
+                alt="cat image"
+                fill
+              />
+            ) : (
+              <Image src={imgs.constCategory} alt="Your image" fill />
+            )}
           </div>
         </div>
       </div>
