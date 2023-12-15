@@ -31,9 +31,9 @@ const AuthHeader: FC<AuthHeaderProps> = ({}) => {
       <nav className="relative h-[5.5rem] pt-5 md:pt-0 flex items-center justify-between max-w-[90%] mx-auto">
         <div className="flex w-full md:justify-center md:items-center">
           <Link href={"/"} className="flex justify-center items-center">
-            <div className="w-[10rem] h-[1.5rem] md:w-[14rem] md:h-[1.7rem] overflow-hidden relative">
+            <div className="w-[10rem] h-[3.5rem] md:w-[14rem] md:h-[3.7rem] overflow-hidden relative">
               <Image
-                src={imgs.afruna_main_logo}
+                src={imgs.logo}
                 alt="logo"
                 priority
                 fill

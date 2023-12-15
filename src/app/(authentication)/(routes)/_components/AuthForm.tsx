@@ -108,7 +108,7 @@ const AuthForm: FC<AuthFormProps> = ({}) => {
           country: country.Name,
         });
         console.log(payload);
-        
+
         if (!payload.firstName) {
           toast.warning("First Name required!");
           return;
@@ -121,8 +121,7 @@ const AuthForm: FC<AuthFormProps> = ({}) => {
         } else if (!payload.password) {
           toast.warning("Password required!");
           return;
-        
-        } else if (payload.confirmPassword  !==  payload.password) {
+        } else if (payload.confirmPassword !== payload.password) {
           toast.warning("Must match with password!");
           return;
         } else if (!payload.country) {
@@ -215,14 +214,12 @@ const AuthForm: FC<AuthFormProps> = ({}) => {
     if (registerResult.isSuccess) {
       const data = registerResult.data;
       const user: IUser = data.data.user;
-      if (user?.role === "user") {
-        Cookies.set("token", data.data.token);
-        dispatch(login());
-        dispatch(setProfile(user));
-        toast.success(data.message);
-        reset();
-        router.replace("/authentication");
-      }
+      Cookies.set("token", data.data.token);
+      dispatch(login());
+      dispatch(setProfile(user));
+      toast.success(data.message);
+      reset();
+      setVariant("LOGIN");
       return;
     }
   }, [
