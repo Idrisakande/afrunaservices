@@ -11,7 +11,7 @@ interface CurrentUserHeaderProps {
   active: boolean;
   id: string;
   name: string;
-  img: string | StaticImageData;
+  img: string ;
 }
 
 export const CurrentUserHeader: FC<CurrentUserHeaderProps> = ({

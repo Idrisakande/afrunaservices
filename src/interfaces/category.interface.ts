@@ -3,6 +3,8 @@ export interface ICategory {
   name: string;
   children: [];
   options: [];
+  parent: string|null;
+  icon:string;
 }
 
 export interface ICategoryResponse {

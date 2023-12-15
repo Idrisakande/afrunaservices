@@ -1,5 +1,4 @@
-import { IMsg } from "@/interfaces";
-import { IConvo } from "@/interfaces/data.interface";
+import { IConvo, IMsg } from "@/interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 const chatPersistConfig = {

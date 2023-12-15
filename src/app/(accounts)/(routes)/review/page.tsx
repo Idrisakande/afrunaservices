@@ -39,7 +39,7 @@ const Page: FC<pageProps> = ({}) => {
                   </h2>
                   <div className="flex justify-start items-center gap-2">
                     <div className="w-[2.3rem] h-[2.3rem] overflow-hidden rounded-full relative flex justify-center items-center">
-                      <Image src={verifyImageUrl(review?.userId.avatar)} alt="review" priority fill />
+                      <Image src={verifyImageUrl(review?.userId.avatar as string)} alt="review" priority fill />
                     </div>
                     <span className="sm:text-sm text-[0.65rem] text-afruna-blue capitalize font-semibold">
                       {review?.userId.firstName} {review.userId.lastName}

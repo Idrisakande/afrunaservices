@@ -4,11 +4,11 @@ import { galleryImg } from "@/constants/data";
 import Image, { StaticImageData } from "next/image";
 import { FC, useEffect, useState } from "react";
 
-interface GallerySliderProps {}
+interface GallerySliderProps {photos:string[]}
 
-const GallerySlider: FC<GallerySliderProps> = ({}) => {
+const GallerySlider: FC<GallerySliderProps> = ({photos}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slideImgLength = galleryImg.length;
+  const slideImgLength = photos.length??0;
 
   const autoShow = true;
   let showInterval: string | number | NodeJS.Timeout | undefined;
@@ -37,7 +37,7 @@ const GallerySlider: FC<GallerySliderProps> = ({}) => {
       <h2 className="text-2xl font-semibold ">Gallery</h2>
       <div className="flex flex-col gap-4 xl:mt-4">
         <div className="w-[18rem] h-[16rem] flex justify-start items-center">
-          {galleryImg.map(({ img }, index) => (
+          {photos.map(( img , index) => (
             <div
               key={index}
               className={`duration-700 transition-all ${
@@ -49,7 +49,7 @@ const GallerySlider: FC<GallerySliderProps> = ({}) => {
               {index === currentSlide && (
                 <div className="w-[18rem] xl:w-[23rem] h-[16rem] relative overflow-hidden flex justify-center items-center">
                   <Image
-                    src={img as unknown as StaticImageData}
+                    src={img}
                     alt={`details-img-${index}`}
                     key={index}
                     fill
@@ -61,7 +61,7 @@ const GallerySlider: FC<GallerySliderProps> = ({}) => {
         </div>
         {/* dot bg */}
         <div className="flex justify-center sm:hidden gap-2 cnter items-center w-full">
-          {galleryImg.map(({ img }, index) => {
+          {photos.map((img , index) => {
             return (
               <button
                 onClick={() => setCurrentSlide(index)}
@@ -76,7 +76,7 @@ const GallerySlider: FC<GallerySliderProps> = ({}) => {
       </div>
       {/* small images */}
       <div className="hidden sm:flex gap-1 justify-start items-center xl:mt-4 w-full">
-        {galleryImg.map(({ img }, index) => {
+        {photos.map(( img , index) => {
           return (
             <button
               onClick={() => setCurrentSlide(index)}

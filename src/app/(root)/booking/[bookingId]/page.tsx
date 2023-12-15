@@ -114,7 +114,7 @@ const BookingsPage: FC<pageProps> = ({ params: { bookingId } }) => {
             <div className="flex justify-start w-fit gap-2 items-center">
               <div className=" w-[3rem] h-[3rem] rounded-full overflow-hidden relative flex justify-center items-center">
                 <Image
-                  src={verifyImageUrl(provider?.avatar)}
+                  src={verifyImageUrl(provider?.avatar as string)}
                   alt={`vendor image`}
                   fill
                 />
@@ -143,7 +143,7 @@ const BookingsPage: FC<pageProps> = ({ params: { bookingId } }) => {
                 </div>
                 <span className="text-sm text-afruna-blue font-extrabold">
                   {getSymbolFromCurrency("NGN")}
-                  {(1000 + service?.price as number).toLocaleString()}
+                  {(1000 + (service?.price as number) as number).toLocaleString()}
                 </span>
               </div>
               <div className="flex gap-2 flex-col justify-start ">

@@ -24,9 +24,10 @@ import { ItemPicker } from "@/lib/utils/ItemPicker";
 import { AiFillAccountBook } from "react-icons/ai";
 import { FiChevronDown } from "react-icons/fi";
 import AllServicesModel from "@/components/AllServicesModel";
-import { useAppSelector } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { profile } from "console";
 import { verifyImageUrl } from "@/utils/verify_image_url";
+import { setProfile } from "@/lib/redux/features/slices/profileSlice";
 
 interface MainHeaderProps {}
 
@@ -61,7 +62,7 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
     //       break;
     //   }
   }, []);
-
+const dispatch = useAppDispatch();
   const handleLogOut = useCallback(() => {
     router.replace("/authentication");
   }, [router]);
@@ -82,8 +83,8 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
             />
           )}
           <Link href={"/"} className="flex justify-center items-center">
-            <div className="w-[9rem] sm:w-[10rem] h-[1.5rem] md:w-[12rem] md:h-[1.5rem] lg:w-[14rem] lg:h-[1.7rem] overflow-hidden relative">
-              <Image src={imgs.afruna_main_logo} alt="logo" priority fill />
+            <div className="w-[9rem] sm:w-[10rem] h-[1.5rem] md:w-[12rem] md:h-[2.5rem] lg:w-[14rem] lg:h-[3.7rem] overflow-hidden relative">
+              <Image src={imgs.logo} alt="logo" width={300} height={200} />
             </div>
           </Link>
         </div>
@@ -127,13 +128,13 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
           <div className="flex justify-center items-center gap-2 lg:gap-3">
             {true ? (
               <>
-                <Link href={"/"} className="relative">
+                {/* <Link href={"/"} className="relative">
                   <IoIosNotifications className="text-[1.4rem] sm:text-[1.6rem]" />
                   <span className="absolute top-0 right-0 text-white bg-rose-400 w-[0.75rem] h-[0.75rem] sm:w-[0.8rem] sm:h-[0.8rem] text-[8px] rounded-full flex justify-center items-center">
                     {" "}
                     3
                   </span>
-                </Link>
+                </Link> */}
                 <Link href={"/chat"}>
                   <BsFillChatLeftTextFill className="text-[0.95rem] sm:text-[1.1rem]" />
                 </Link>
@@ -146,7 +147,7 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
                   getSelected={(val) => console.log(val)}
                   leftTriggerIcon={
                     <div className="w-[1.6rem] h-[1.6rem] md:w-8 md:h-8 lg:w-10 lg:h-10  rounded-full transition-all hover:scale-90 ease-in-out duration-300 overflow-hidden relative flex justify-center items-center">
-                      <Image src={verifyImageUrl(profile_data?.avatar)} alt="Your image" fill />
+                      <Image src={verifyImageUrl(profile_data?.avatar as string)} alt="Your image" fill />
                     </div>
                   }
                   placeholder={`${profile_data?.firstName} ${profile_data?.lastName}`}
@@ -166,11 +167,11 @@ const MainHeader: FC<MainHeaderProps> = ({}) => {
                       icon: <AiFillAccountBook />,
                       href: "/bookings",
                     },
-                    {
-                      name: "Scannar",
-                      href: "/scannar",
-                      icon: <MdOutlineQrCodeScanner />,
-                    },
+                    // {
+                    //   name: "Scannar",
+                    //   href: "/scannar",
+                    //   icon: <MdOutlineQrCodeScanner />,
+                    // },
                   ]}
                   extraComponent={
                     <button

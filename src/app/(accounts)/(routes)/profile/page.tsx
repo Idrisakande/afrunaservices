@@ -118,7 +118,7 @@ const ProfilePage: FC<pageProps> = ({}) => {
           <div className="flex lg:pl-6 lg:pt-4 gap-2 sm:gap-3 justify-start items-end">
             <div className="w-[4.5rem] h-[4.5rem] sm:w-[5rem] sm:h-[5rem] lg:w-[7.5rem] lg:h-[7.5rem] shadow rounded-full overflow-hidden relative flex justify-center items-center">
               <Image
-                 src={verifyImageUrl(profile_data?.avatar)}
+                 src={verifyImageUrl(profile_data?.avatar as string)}
                 alt="Your image"
                 fill
               />

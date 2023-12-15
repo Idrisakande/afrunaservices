@@ -59,8 +59,10 @@ import detail3 from "@/assests/imgs/detail3.png";
 import detail4 from "@/assests/imgs/detail4.png";
 import noServicesFound from "@/assests/imgs/noServiceFound.png"
 import anonyUser from "@/assests/imgs/anonymous-user.png"
+import logo from "@/assests/imgs/logo.png"
 
 export const imgs = {
+  logo,
   anonyUser,
   noServicesFound,
   afruna_main_logo,

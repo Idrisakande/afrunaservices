@@ -4,7 +4,7 @@ import Image, { StaticImageData } from "next/image";
 import { FC } from "react";
 
 interface AvatarProps {
-  img: string | StaticImageData;
+  img: string |StaticImageData;
   active?: boolean;
   isOwn?: boolean;
   convo?: boolean;

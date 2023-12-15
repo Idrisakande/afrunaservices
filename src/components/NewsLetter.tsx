@@ -14,7 +14,7 @@ export const NewsLetter: FC<NewsLetterProps> = ({}) => {
       <form className="max-w-[27rem] mx-auto mt-6 rounded-md border border-[#D3D3D3] overflow-hidden flex justify-center items-center">
         <input
           type="text"
-          disabled
+          // disabled
           placeholder="Enter your email address..."
           className="w-full px-3 py-3 bg-white h-full placeholder:text-[#D3D3D3]"
         />

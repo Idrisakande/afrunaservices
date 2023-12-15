@@ -24,6 +24,7 @@ import { MdArrowForwardIos } from "react-icons/md";
 import { useGetReviewsByServiceIdQuery } from "@/lib/redux/features/apis/reviews_api";
 import NoServicesFound from "@/components/ui/NoServicesFound";
 import NoThingFound from "@/components/ui/NothingFound";
+import { useRouter } from "next/navigation";
 
 interface pageProps {
   params: {
@@ -44,8 +45,6 @@ const Page: FC<pageProps>  = ({params:{providerId}}) => {
   const otherServices = useMemo(() => {
     return data?.data.filter((datum) => datum._id !== service?._id);
   }, [data, service?._id]);
-  console.log("service");
-  console.log(service);
   
 
   const providers = useMemo(() => {
@@ -55,7 +54,7 @@ const Page: FC<pageProps>  = ({params:{providerId}}) => {
   }, [providerId, providersData.data, providersData.isSuccess]);
 
   const reviews = serviceReviews.data?.data;
-
+  const {push} = useRouter();
   return (
     <main className="">
       <section className="flex px-4 py-4 gap-2 lg:px-32 justify-start items-center">
@@ -119,7 +118,9 @@ const Page: FC<pageProps>  = ({params:{providerId}}) => {
             </div>
             <div className="flex flex-col gap-3 mt-2 justify-start items-start">
               <p className="text-sm">{service?.desc}</p>
-              <Button variant={"afrunaOutline"} className="">
+              <Button disabled={service?.providerId._id === null && true} onClick={()=> {
+                push("/chat/"+service?.providerId._id)
+              }} variant={"afrunaOutline"} className="">
                 <BsFillChatLeftTextFill className="text-[1rem] mr-2 sm:text-[1.1rem]" />
                 Contact me
               </Button>
@@ -129,7 +130,7 @@ const Page: FC<pageProps>  = ({params:{providerId}}) => {
         {/* === services section */}
         {/* if there is a services display it relation */}
         {service !== undefined? (<>
-          {service && service.photos.length > 0 ? <GallerySlider /> : null}
+          {service && service.photos.length > 0 ? <GallerySlider photos={service.photos} /> : null}
           <section className="flex mt-12 flex-col py-4 gap-4 justify-start">
             <h2 className="text-2xl font-semibold text-start flex justify-self-start">
               Service Details

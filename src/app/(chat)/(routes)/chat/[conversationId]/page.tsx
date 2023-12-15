@@ -45,7 +45,7 @@ const ChatCovoPage: FC<pageProps> = ({ params: { conversationId } }) => {
     
   }, []);
 
-  const { searchResult, setSearchInput } = useSearchConvo({ data: convo });
+  const { searchResult, setSearchInput } = useSearchConvo<IConvo>({ data: convo  ,});
 
   return (
     <section className="flex flex-col gap-6 sm:gap-2 max-w-[94%] md:max-w-[100%] mx-auto">
@@ -186,7 +186,7 @@ const ChatCovoPage: FC<pageProps> = ({ params: { conversationId } }) => {
               <div className="h-[4.5rem] px-2 sm:px-8 border-b border-[#D5D5E6] flex justify-center items-center">
                 <CurrentUserHeader
                   name={`${data?.data.firstName} ${data?.data.lastName}`}
-                  img={data?.data.avatar??imgs.anonyUser}
+                  img={data?.data.avatar as string}
                   active={true}
                   id={data?.data._id as string}
                 />

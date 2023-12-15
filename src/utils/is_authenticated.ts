@@ -1,8 +1,6 @@
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import { decodeJWT } from "./decode_jwt";
-import store from "@/redux/store";
-import { setAuth10 } from "@/redux/features/auth.slice";
 
 export const isAuthenticated = () => {
 	// Check valid sessions and tokens
@@ -18,7 +16,7 @@ export const isAuthenticated = () => {
 				console.warn("Session reset. Please login!");
 				return false;
 			} else {
-				store.store.dispatch(setAuth10(true));
+				// store.store.dispatch(setAuth10(true));
 				return true;
 			}
 		} else {
